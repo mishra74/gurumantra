@@ -1,0 +1,39 @@
+/* Mobile Devices */
+@media (max-width: 768px) {
+
+  .hero-card {
+    padding: 30px 20px;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .palette-card {
+    margin-top: 20px;
+  }
+
+  .score-box {
+    margin-bottom: 15px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+}
+
+/* Extra Small Devices */
+@media (max-width: 576px) {
+
+  h1, h3, h5 {
+    font-size: 18px;
+  }
+
+  .palette-btn {
+    width: 35px;
+    height: 35px;
+  }
+
+}

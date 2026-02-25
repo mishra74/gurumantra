@@ -1,0 +1,192 @@
+.home-bg{
+  height:100vh;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.center-box{
+  text-align:center;
+}
+
+.practice-card{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.option-item{
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  margin-bottom:10px;
+  cursor:pointer;
+  transition:0.3s;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.option-item:hover{
+  background:#f1f5ff;
+}
+
+.correct{
+  background:#d4edda;
+  border-color:#28a745;
+}
+
+.wrong{
+  background:#f8d7da;
+  border-color:#dc3545;
+}
+.practice-card{
+  background:white;
+  padding:40px;
+  border-radius:18px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.08);
+}
+
+.option-item{
+  padding:14px;
+  border:1px solid #e0e0e0;
+  border-radius:12px;
+  margin-bottom:12px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.option-item:hover{
+  background:#f4f6ff;
+}
+
+.radio-circle{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  border:2px solid #6c757d;
+}
+
+.filled{
+  background:#0d6efd;
+  border-color:#0d6efd;
+}
+
+.correct{
+  background:#e6f9f0;
+  border-color:#28a745;
+}
+
+.wrong{
+  background:#fdeaea;
+  border-color:#dc3545;
+}
+
+.review-card{
+  padding:15px;
+  border:1px solid #e5e5e5;
+  border-radius:12px;
+  margin-bottom:15px;
+}
+
+.result-summary{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap:15px;
+  font-size:16px;
+}
+/* Buttons Layout */
+.action-buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+/* Desktop */
+.btn-action{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 16px;
+}
+
+@media (max-width: 576px){
+
+  .action-buttons{
+    justify-content:space-between;
+  }
+
+  .btn-action{
+    flex:1;
+    justify-content:center;
+    padding:10px 0;
+  }
+
+  /* Hide text for all buttons */
+  .btn-text{
+    display:none;
+  }
+
+  /* BUT show text for Submit button */
+  .btn-success .btn-text{
+    display:inline;
+  }
+
+  .btn-action i{
+    font-size:18px;
+  }
+
+}
+/* ================= RESULT PAGE FIX ================= */
+
+.review-card{
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.review-card b{
+    font-size: 15px;
+}
+
+.review-card .badge{
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 20px;
+}
+
+.result-summary{
+    background:#f8f9fa;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+/* Mobile Fix */
+@media (max-width:576px){
+
+    .review-card b{
+        font-size:14px;
+    }
+
+    .review-card .badge{
+        margin-top:6px;
+        align-self:flex-start;
+    }
+}
+/* FIX: Same size for Correct/Wrong badge */
+
+.review-card .badge{
+    min-width: 80px;      /* same width */
+    text-align: center;
+    font-size: 12px;
+    padding: 6px 0;
+    border-radius: 20px;
+}

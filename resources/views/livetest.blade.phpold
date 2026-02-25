@@ -1,0 +1,123 @@
+@include('layouts.header')
+
+
+<div class="container-fluid py-4">
+    <div class="container">
+        <!-- Header with title and timer -->
+        <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+            <h4 class="fw-bold mb-0">BPSC 70th Demo Test - 1</h4>
+            <div id="timer" class="timer">⏱ 01:00:00</div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Left Section -->
+            <div class="col-lg-8">
+                <div class="exam-container">
+                    <div class="p-3 bg-primary text-white d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-0 text-white">Q1: Multiple Choice Question</h5>
+                        </div>
+                        <div>
+                            <small>Marks: <b>1.00</b> | Negative: <b>0.33</b></small>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <p class="fw-semibold">
+                            The distribution of powers between the Centre and the States in the Indian Constitution is
+                            based on the scheme provided in the:
+                        </p>
+
+                        <div class="question-options mt-4">
+                            <label class="list-group-item d-flex align-items-center mb-2 border">
+                                <input class="form-check-input me-3" type="radio" name="q1" value="1">
+                                <span>Morley-Minto Reforms, 1909</span>
+                            </label>
+                            <label class="list-group-item d-flex align-items-center mb-2 border">
+                                <input class="form-check-input me-3" type="radio" name="q1" value="2">
+                                <span>Montagu-Chelmsford Act, 1919</span>
+                            </label>
+                            <label class="list-group-item d-flex align-items-center mb-2 border">
+                                <input class="form-check-input me-3" type="radio" name="q1" value="3">
+                                <span>Government of India Act, 1935</span>
+                            </label>
+                            <label class="list-group-item d-flex align-items-center mb-2 border">
+                                <input class="form-check-input me-3" type="radio" name="q1" value="4">
+                                <span>Indian Independence Act, 1947</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-wrap justify-content-end gap-2 border-top p-3 bg-light">
+                        <button class="btn btn-outline-danger btn-sm">Clear</button>
+                        <button class="btn btn-outline-secondary btn-sm">Report Question</button>
+                        <button class="btn btn-warning btn-sm text-white">Mark for Review</button>
+                        <button class="btn btn-primary btn-sm">Next</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="col-lg-4">
+                <div class="sidebar-card mb-4">
+                    <div class="card-header bg-success text-white fw-bold">
+                        BPSC 70th Free Test - 1 (GS)
+                    </div>
+                    <div class="card-body question-grid d-flex flex-wrap gap-2">
+                        @for ($i = 1; $i <= 20; $i++)
+                            <button class="btn btn-sm {{ $i == 1 ? 'btn-danger text-white' : 'btn-light border' }}">
+                                {{ $i }}
+                            </button>
+                        @endfor
+                    </div>
+                </div>
+
+                <div class="sidebar-card mb-4">
+                    <div class="card-header bg-primary text-white fw-bold">
+                        Legend & State
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-1"><span class="badge bg-secondary me-2">109</span> Not Visited</li>
+                            <li class="mb-1"><span class="badge bg-success me-2">0</span> Answered</li>
+                            <li class="mb-1"><span class="badge bg-danger me-2">1</span> Not Answered</li>
+                            <li class="mb-1"><span class="badge bg-warning me-2">0</span> Mark for Review</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button class="btn btn-success w-100 py-2 fw-bold shadow-sm">Submit Test</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Timer Script (1 hour countdown)
+    let totalSeconds = 3600; // 1 hour = 3600 seconds
+
+    const timerElement = document.getElementById('timer');
+
+    const timerInterval = setInterval(() => {
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        timerElement.textContent = `⏱ ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        // Change color when less than 5 min
+        if (totalSeconds <= 300) {
+            timerElement.style.background = '#fdecea';
+            timerElement.style.color = '#dc3545';
+        }
+
+        if (totalSeconds <= 0) {
+            clearInterval(timerInterval);
+            timerElement.textContent = "⏱ Time's Up!";
+            timerElement.style.color = '#dc3545';
+        }
+
+        totalSeconds--;
+    }, 1000);
+</script>
+
+@include('layouts.footer')
