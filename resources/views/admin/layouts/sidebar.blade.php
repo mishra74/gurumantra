@@ -255,8 +255,35 @@
                 </ul>
             </div>
         </li>
-
-
+<li class="side-nav-item">
+            <a data-bs-toggle="collapse" href="#Category" aria-expanded="false" aria-controls="packages" class="side-nav-link">
+                <span> All Category </span>
+                <span class="menu-arrow"></span>
+            </a>
+            <div class="collapse" id="Category">
+                <ul class="side-nav-second-level">
+                    <li>
+                        <a href="{{route('category.all')}}">📦 All Category</a>
+                    </li>
+                  
+                </ul>
+            </div>
+        </li>
+        <li class="side-nav-item">
+            <a data-bs-toggle="collapse" href="#Blogs" aria-expanded="false" aria-controls="packages" class="side-nav-link">
+                <span> All Blogs </span>
+                <span class="menu-arrow"></span>
+            </a>
+            <div class="collapse" id="Blogs">
+                <ul class="side-nav-second-level">
+                    <li>
+                        <a href="{{route('blog.all')}}">📦 All Blogs</a>
+                    </li>
+                  
+                </ul>
+            </div>
+        </li>
+       
         
 
         <li class="side-nav-item">

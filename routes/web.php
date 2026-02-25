@@ -40,6 +40,10 @@ use App\Http\Controllers\QuestionBankController;
 use CKSource\CKFinderBridge\Controller\CKFinderController;
 use App\Http\Controllers\HomePractiseController;
 use App\Http\Controllers\HomeLiveController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\BlogController;
+
 
 
 
@@ -371,5 +375,37 @@ Route::post('admin/recording_creates/store', [CreatevideoController::class, 'sto
 Route::get('admin/recording_creates/delete/{id}', [CreatevideoController::class, 'destroy'])->name('recording_creates.delete');  
 Route::get('admin/recording_creates/restore/{id}', [CreatevideoController::class, 'restore'])->name('recording_creates.restore');  
 Route::get('admin/recording_creates/toggle/{id}', [CreatevideoController::class, 'toggleActive'])->name('recording_creates.toggle');
+
+//create category
+Route::get('admin/category/all',[CategoryController::class, 'index'])->name('category.all');
+Route::get('admin/category/add', [CategoryController::class, 'create'])->name('add.category');
+Route::post('admin/category/store', [CategoryController::class, 'store'])->name('category.store');
+Route::get('admin/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+Route::put('admin/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+Route::get('admin/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
+Route::get('admin/category/delete/permanent/{id}', [CategoryController::class, 'destroy_permanent'])->name('category.delete.permanent');
+Route::get('admin/category/restore/{id}', [CategoryController::class, 'restore'])->name('category.restore');
+Route::get('admin/category/toggle/{id}', [CategoryController::class, 'toggleActive'])->name('category.toggle');
+//create subcategory
+Route::get('admin/subcategory/all/{id}',[SubCategoryController::class, 'index'])->name('subcategory.all');
+Route::get('admin/subcategory/add/{id}', [SubCategoryController::class, 'create'])->name('add.subcategory');
+Route::post('admin/subcategory/store', [SubCategoryController::class, 'store'])->name('subcategory.store');
+Route::get('admin/subcategory/edit/{id}', [SubCategoryController::class, 'edit'])->name('subcategory.edit');
+Route::put('admin/subcategory/update/{id}', [SubCategoryController::class, 'update'])->name('subcategory.update');
+Route::get('admin/subcategory/delete/{id}', [SubCategoryController::class, 'destroy'])->name('subcategory.delete');
+Route::get('admin/subcategory/delete/permanent/{id}', [SubCategoryController::class, 'destroy_permanent'])->name('subcategory.delete.permanent');
+Route::get('admin/subcategory/restore/{id}', [SubCategoryController::class, 'restore'])->name('subcategory.restore');
+Route::get('admin/subcategory/toggle/{id}', [SubCategoryController::class, 'toggleActive'])->name('subcategory.toggle');
+Route::get('/admin/get-subcategories/{id}', [SubCategoryController::class, 'getCategory'])->name('subcategory.getCategory');
+//blogs
+Route::get('admin/Blog/all',[BlogController::class, 'index'])->name('blog.all');
+Route::get('admin/blog/add', [BlogController::class, 'create'])->name('add.blog');
+Route::post('admin/blog/store', [BlogController::class, 'store'])->name('blog.store');
+Route::get('admin/blog/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
+Route::put('admin/blog/update/{id}', [BlogController::class, 'update'])->name('blog.update');
+Route::get('admin/blog/delete/{id}', [BlogController::class, 'destroy'])->name('blog.delete');
+Route::get('admin/blog/delete/permanent/{id}', [BlogController::class, 'destroy_permanent'])->name('blog.delete.permanent');
+Route::get('admin/blog/restore/{id}', [BlogController::class, 'restore'])->name('blog.restore');
+Route::get('admin/blog/toggle/{id}', [BlogController::class, 'toggleActive'])->name('blog.toggle');
 
 });
