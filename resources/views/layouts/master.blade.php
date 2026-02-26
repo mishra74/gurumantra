@@ -12,11 +12,11 @@
       rel="stylesheet"
     />
      <!-- Libraries Stylesheet -->
-        <link rel="stylesheet" href="{{ asset('bootstrap/lib/animate/animate.min.css') }}"/>
-        <link href="{{ asset('bootstrap/lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('bootstrap/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('frontend/bootstrap/lib/animate/animate.min.css') }}"/>
+        <link href="{{ asset('frontend/bootstrap/lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('frontend/bootstrap/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('frontend/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
         <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <link
@@ -24,7 +24,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
     />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" />
   </head>
 
    

@@ -50,7 +50,7 @@ use App\Http\Controllers\HomeBlogController;
 
 
 
-Route::get('/',[HomeController::class,'index']);
+Route::get('/',[HomeController::class,'index'])->name('home');
 
 Route::get('/term_and_conditions', [HomeController::class, 'term_and_conditions']);
 Route::get('/privacy_policy', [HomeController::class, 'privacy_policy']);

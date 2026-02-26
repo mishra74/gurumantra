@@ -3,9 +3,9 @@
         <!-- LOGO -->
         <a
           class="navbar-brand d-flex align-items-center gap-2"
-          href="index.html"
+          href="{{ route('home') }}"
         >
-          <img src="{{ asset('images/logo.png') }}" alt="Logo" class="main-logo" />
+          <img src="{{ asset('frontend/images/logo.png') }}" alt="Logo" class="main-logo" />
         </a>
 
         <!-- TOGGLER -->
@@ -37,7 +37,7 @@
             </li>
 
             <li class="nav-item">
-            <a class="nav-link" href="login.html">Login</a>
+            <a class="nav-link" href="{{ route('login') }}">Login</a>
             </li>
 
 

@@ -42,9 +42,9 @@ class BlogController extends Controller
 
     $filename = time().'.'.$file->getClientOriginalExtension();
 
-    $file->move(public_path('uploads/blogs'), $filename);
+    $file->move('frontend/uploads/blogs', $filename);
 
-    $validated['thumbnail'] = 'uploads/blogs/'.$filename;
+    $validated['thumbnail'] = 'frontend/uploads/blogs/'.$filename;
 }
 
     Blog::create($validated);
@@ -72,14 +72,18 @@ class BlogController extends Controller
         'sub_category_id' => 'required',
     ]);
 
-    if ($request->hasFile('thumbnail')) {
+      if ($request->hasFile('thumbnail')) {
+        // Delete old thumbnail if exists
+        if ($blog->thumbnail && file_exists($blog->thumbnail)) {
+            unlink($blog->thumbnail);
+        }
     $file = $request->file('thumbnail');
 
     $filename = time().'.'.$file->getClientOriginalExtension();
 
-    $file->move(public_path('uploads/blogs'), $filename);
+    $file->move('frontend/uploads/blogs', $filename);
 
-    $validated['thumbnail'] = 'uploads/blogs/'.$filename;
+    $validated['thumbnail'] = 'frontend/uploads/blogs/'.$filename;
 }
     $blog->update($validated);
 
