@@ -38,12 +38,14 @@ class BlogController extends Controller
 
     // Upload Thumbnail
     if ($request->hasFile('thumbnail')) {
-        $file = $request->file('thumbnail');
-        $filename = time().'_'.$file->getClientOriginalName();
-        $file->move(public_path('uploads/blogs'), $filename);
+    $file = $request->file('thumbnail');
 
-        $validated['thumbnail'] = 'uploads/blogs/'.$filename;
-    }
+    $filename = time().'.'.$file->getClientOriginalExtension();
+
+    $file->move(public_path('uploads/blogs'), $filename);
+
+    $validated['thumbnail'] = 'uploads/blogs/'.$filename;
+}
 
     Blog::create($validated);
 
@@ -71,12 +73,14 @@ class BlogController extends Controller
     ]);
 
     if ($request->hasFile('thumbnail')) {
-        $file = $request->file('thumbnail');
-        $filename = time().'_'.$file->getClientOriginalName();
-        $file->move(public_path('uploads/blogs'), $filename);
-        $validated['thumbnail'] = 'uploads/blogs/'.$filename;
-    }
+    $file = $request->file('thumbnail');
 
+    $filename = time().'.'.$file->getClientOriginalExtension();
+
+    $file->move(public_path('uploads/blogs'), $filename);
+
+    $validated['thumbnail'] = 'uploads/blogs/'.$filename;
+}
     $blog->update($validated);
 
     return redirect()->route('blog.all')
