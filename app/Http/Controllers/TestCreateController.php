@@ -52,6 +52,16 @@ class TestCreateController extends Controller
         $data['volume_id'] = session('test_volume');
         $data['pdf_enter_question'] = $request->content_upload_question;
         $data['pdf_enter_answer'] = $request->content_upload_answer;
+          // Upload Thumbnail
+    if ($request->hasFile('thumbnail')) {
+    $file = $request->file('thumbnail');
+
+    $filename = time().'.'.$file->getClientOriginalExtension();
+
+    $file->move('frontend/uploads/test', $filename);
+
+    $validated['thumbnail'] = 'frontend/uploads/test/'.$filename;
+}
         CreateModel::create($data);
       return redirect('admin/test_create/'.session('test_volume'))->with('success','Test Created Successfully');
 
@@ -94,6 +104,17 @@ class TestCreateController extends Controller
     $data['pdf_enter_answer']   = $request->content_upload_answer;
 
     /* ---------------- UPDATE ---------------- */
+      // Upload Thumbnail
+    if ($request->hasFile('thumbnail')) {
+    $file = $request->file('thumbnail');
+
+    $filename = time().'.'.$file->getClientOriginalExtension();
+
+    $file->move('frontend/uploads/test', $filename);
+
+    $validated['thumbnail'] = 'frontend/uploads/test/'.$filename;
+}
+    $data['thumbnail'] = $validated['thumbnail'] ?? $test->thumbnail;
     $test->update($data);
 
     return redirect()

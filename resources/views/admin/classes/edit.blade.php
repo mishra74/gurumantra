@@ -49,7 +49,17 @@
                                                    required>
                                             @error('title') <small class="text-danger">{{ $message }}</small> @enderror
                                         </div>
+ <!-- Thumbnail -->
+    <div class="col-md-6">
+        <label class="form-label">Thumbnail</label>
+        <input type="file" name="thumbnail" class="form-control" accept=".jpg,.jpeg,.png">
 
+        @if($class->thumbnail)
+            <div class="mt-2">
+                <img src="{{ asset($class->thumbnail) }}" width="80" class="rounded">
+            </div>
+        @endif
+    </div>
                                         <!-- Time -->
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Time</label>

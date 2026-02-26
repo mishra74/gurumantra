@@ -7,7 +7,7 @@ class QuestionsController extends Controller
 {
     public function index(){
         $data['page'] = 'All Questions';
-        $data['question'] = Questions::withTrashed()->paginate(10);
+        $data['question'] = Questions::withTrashed()->latest()->paginate(10);
         return view('admin.quetion.index')->with($data);
     }
 

@@ -34,7 +34,17 @@
 <input type="text" name="title" class="form-control"
        value="{{ old('title', $create_note->title) }}" required>
 </div>
+ <!-- Thumbnail -->
+    <div class="col-md-6">
+        <label class="form-label">Thumbnail</label>
+        <input type="file" name="thumbnail" class="form-control" accept=".jpg,.jpeg,.png">
 
+        @if($create_note->thumbnail)
+            <div class="mt-2">
+                <img src="{{ asset($create_note->thumbnail) }}" width="80" class="rounded">
+            </div>
+        @endif
+    </div>
 <div class="mb-3 col-md-6 liveclass"
      style="{{ $create_note->start_date ? '' : 'display:none' }}">
 <label class="form-label">Start Date</label>

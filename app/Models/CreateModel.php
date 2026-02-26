@@ -26,6 +26,7 @@ class CreateModel extends Model
         'meta_key',
         'is_active',
         'description',
+        'thumbnail',
         // add more database fields here
     ];
 }

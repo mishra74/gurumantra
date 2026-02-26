@@ -37,6 +37,17 @@ class VideorecordingController extends Controller
  //dd($request->all());
          $data = $request->all();
          $data['courses'] = json_encode($request->courses);
+           // Upload Thumbnail
+    if ($request->hasFile('thumbnail')) {
+    $file = $request->file('thumbnail');
+
+    $filename = time().'.'.$file->getClientOriginalExtension();
+
+    $file->move('frontend/uploads/video', $filename);
+
+    $validated['thumbnail'] = 'frontend/uploads/video/'.$filename;
+}
+         $data['thumbnail'] = $validated['thumbnail'] ?? null;
          $batch = ViewrecorderModel::create($data);
  
          return redirect('admin/recordings/all')->with('success','Video Recording Add sucessfully');
@@ -63,7 +74,14 @@ class VideorecordingController extends Controller
      public function update(Request $request, $id)
      {
          $batch = ViewrecorderModel::withTrashed()->findOrFail($id);
-         $batch->update($request->all());
+         $data = $request->all();
+         if ($request->hasFile('thumbnail')) {
+            $file = $request->file('thumbnail');
+            $filename = time().'.'.$file->getClientOriginalExtension();
+            $file->move('frontend/uploads/video', $filename);
+            $data['thumbnail'] = 'frontend/uploads/video/'.$filename;
+        }
+         $batch->update($data);
          return redirect('admin/recordings/all')->with('success','Video Recording Update successfully');
  
      }

@@ -43,6 +43,17 @@ class TestController extends Controller
 //dd($request->all());
         $data = $request->all();
         $data['courses'] = json_encode($request->courses);
+          // Upload Thumbnail
+    if ($request->hasFile('thumbnail')) {
+    $file = $request->file('thumbnail');
+
+    $filename = time().'.'.$file->getClientOriginalExtension();
+
+    $file->move('frontend/uploads/test', $filename);
+
+    $validated['thumbnail'] = 'frontend/uploads/test/'.$filename;
+}
+        $data['thumbnail'] = $validated['thumbnail'] ?? null;
         $batch = Test::create($data);
 
         return redirect('admin/test/all')->with('success','Test add sucessfully');
@@ -79,12 +90,18 @@ class TestController extends Controller
     // Prepare data
     $data = $request->all();
     $data['courses'] = json_encode($request->courses ?? []); // JSON encode for multiple select
+    if ($request->hasFile('thumbnail')) {
+        $file = $request->file('thumbnail');
+        $filename = time().'.'.$file->getClientOriginalExtension();
+        $file->move('frontend/uploads/test', $filename);
+        $data['thumbnail'] = 'frontend/uploads/test/'.$filename;
+    }
 
     // Update record
     $test->update($data);
     
 
-        return redirect('admin/test/all')->with('success','Test add sucessfully');
+        return redirect('admin/test/all')->with('success','Test update successfully');
 
     }
 

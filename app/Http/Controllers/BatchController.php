@@ -38,10 +38,20 @@ public function edit($id)
             'start_date' => 'nullable|date',
             'is_active' => 'boolean',
         ]);
+          // Upload Thumbnail
+    if ($request->hasFile('thumbnail')) {
+    $file = $request->file('thumbnail');
+
+    $filename = time().'.'.$file->getClientOriginalExtension();
+
+    $file->move('frontend/uploads/batch', $filename);
+
+    $validated['thumbnail'] = 'frontend/uploads/batch/'.$filename;
+}
         $data = $request->all();
         $data['course_id'] = session('course_id');
+        $data['thumbnail'] = $validated['thumbnail'] ?? null;
         $batch = Batch::create($data);
-
         return redirect('cource/batch/'.session('course_id'))->with('success','Batch add sucessfully');
     }
 
@@ -57,8 +67,20 @@ public function edit($id)
     public function update(Request $request, $id)
     {
         $batch = Batch::withTrashed()->findOrFail($id);
-        $batch->update($request->all());
-        return redirect('cource/batch/'.session('course_id'))->with('success','Batch add successfully');
+          // Upload Thumbnail
+    if ($request->hasFile('thumbnail')) {
+    $file = $request->file('thumbnail');
+
+    $filename = time().'.'.$file->getClientOriginalExtension();
+
+    $file->move('frontend/uploads/batch', $filename);
+
+    $validated['thumbnail'] = 'frontend/uploads/batch/'.$filename;
+}
+        $data = $request->all();
+        $data['thumbnail'] = $validated['thumbnail'] ?? null;
+        $batch->update($data);
+        return redirect('cource/batch/'.session('course_id'))->with('success','Batch update successfully');
 
     }
 

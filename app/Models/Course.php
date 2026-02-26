@@ -16,6 +16,7 @@ class Course extends Model
         'is_active',
         'meta_key',
         'meta_description',
+        'thumbnail', 
     ];
     public function batches()
 {

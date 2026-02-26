@@ -60,6 +60,15 @@
 
                                                 </div>
                                             </div>
+<!-- Thumbnail -->
+        <div class="col-md-6">
+            <label class="form-label">Thumbnail</label>
+            <input type="file" name="thumbnail" class="form-control"
+                   accept=".jpg,.jpeg,.png">
+            @error('thumbnail')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
 
                                             <div class="row g-2">
                                                 <div class="mb-3 col-md-6">

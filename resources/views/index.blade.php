@@ -6,21 +6,21 @@
       <div class="carousel-inner">
         <div class="carousel-item active">
           <img
-            src="images/slider/slider1.png"
+            src="{{ asset('frontend/images/slider/slider1.png') }}"
             class="d-block w-100 hero-img"
             alt="Slide 1"
           />
         </div>
         <div class="carousel-item">
           <img
-            src="images/slider/slider2.png"
+            src="{{ asset('frontend/images/slider/slider2.png') }}"
             class="d-block w-100 hero-img"
             alt="Slide 2"
           />
         </div>
         <div class="carousel-item">
           <img
-            src="images/slider/slider3.png"
+            src="{{ asset('frontend/images/slider/slider3.png') }}"
             class="d-block w-100 hero-img"
             alt="Slide 3"
           />
@@ -69,7 +69,7 @@
           <div class="col-md-6">
             <div class="coin-card h-100">
               <img
-                src="images/icons/referral.png"
+                src="{{ asset('frontend/images/icons/referral.png') }}"
                 alt="Referral"
                 class="coin-icon mb-3"
               />
@@ -87,7 +87,7 @@
           <div class="col-md-6">
             <div class="coin-card h-100 text-center">
               <img
-                src="images/icons/coins.png"
+                src="{{ asset('frontend/images/icons/coins.png') }}"
                 alt="Coins"
                 class="coin-icon mb-3"
               />
@@ -190,14 +190,14 @@
             <div class="row g-4">
               <div class="col-md-6 col-12">
                 <img
-                  src="images/ads/ad1.png"
+                  src="{{ asset('frontend/images/ads/ad1.png') }}"
                   class="ad-img shadow-sm w-100"
                   alt="Ad 1"
                 />
               </div>
               <div class="col-md-6 d-none d-md-block">
                 <img
-                  src="images/ads/ad2.png"
+                  src="{{ asset('frontend/images/ads/ad2.png') }}"
                   class="ad-img shadow-sm w-100"
                   alt="Ad 2"
                 />
@@ -208,14 +208,14 @@
             <div class="row g-4">
               <div class="col-md-6 col-12">
                 <img
-                  src="images/ads/ad3.png"
+                  src="{{ asset('frontend/images/ads/ad3.png') }}"
                   class="ad-img shadow-sm w-100"
                   alt="Ad 3"
                 />
               </div>
               <div class="col-md-6 d-none d-md-block">
                 <img
-                  src="images/ads/ad4.png"
+                  src="{{ asset('frontend/images/ads/ad4.png') }}"
                   class="ad-img shadow-sm w-100"
                   alt="Ad 4"
                 />
@@ -322,7 +322,7 @@
           <div class="test-card p-4 text-center h-100 shadow-sm border">
             <div class="test-icon-box mb-4">
               <img
-                src="images/icons/test1.png"
+                src="{{ asset('frontend/images/icons/test1.png') }}"
                 alt="Test 1"
                 class="img-fluid"
               />
@@ -339,7 +339,7 @@
           <div class="test-card p-4 text-center h-100 shadow-sm border">
             <div class="test-icon-box mb-4">
               <img
-                src="images/icons/test2.png"
+                src="{{ asset('frontend/images/icons/test2.png') }}"
                 alt="Test 2"
                 class="img-fluid"
               />
@@ -356,7 +356,7 @@
           <div class="test-card p-4 text-center h-100 shadow-sm border">
             <div class="test-icon-box mb-3">
               <img
-                src="images/icons/test3.png"
+                src="{{ asset('frontend/images/icons/test3.png') }}"
                 alt="Test 3"
                 class="img-fluid"
               />

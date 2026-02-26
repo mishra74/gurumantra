@@ -12,7 +12,7 @@ class PDfNoteController extends Controller
     public function index()
     {
         $data['page'] = 'All Notes';
-        $data['test'] = PDFNoteModel::withTrashed()->paginate(10);
+        $data['test'] = PDFNoteModel::withTrashed()->latest()->paginate(10);
        
         
         return view('admin.pdfnotes.index')->with($data);
@@ -51,6 +51,12 @@ class PDfNoteController extends Controller
 //dd($request->all());
         $data = $request->all();
         $data['courses'] = json_encode($request->courses);
+         if ($request->hasFile('thumbnail')) {
+                $file = $request->file('thumbnail');
+                $filename = time().'.'.$file->getClientOriginalExtension();
+                $file->move('frontend/uploads/pdfnotes', $filename);
+                $data['thumbnail'] = 'frontend/uploads/pdfnotes/'.$filename;
+          }
         $batch = PDFNoteModel::create($data);
 
         return redirect('admin/pdfnotes/all')->with('success','Notes add sucessfully');
@@ -76,11 +82,17 @@ class PDfNoteController extends Controller
 
     // Prepare data
     $data = $request->all();
+    if ($request->hasFile('thumbnail')) {
+        $file = $request->file('thumbnail');
+        $filename = time().'.'.$file->getClientOriginalExtension();
+        $file->move('frontend/uploads/pdfnotes', $filename);
+        $data['thumbnail'] = 'frontend/uploads/pdfnotes/'.$filename;
+    }
     $data['courses'] = json_encode($request->courses ?? []); // multiple courses as JSON
 
     // Update record
     $pdfNote->update($data);
-        return redirect('admin/pdfnotes/all')->with('success','Notes add successfully');
+        return redirect('admin/pdfnotes/all')->with('success','Notes update successfully');
 
     }
 

@@ -56,6 +56,17 @@
                                                     @error('title') <small class="text-danger">{{ $message }}</small> @enderror
 
                                                 </div>
+                                                 <!-- Thumbnail -->
+    <div class="col-md-6">
+        <label class="form-label">Thumbnail</label>
+        <input type="file" name="thumbnail" class="form-control" accept=".jpg,.jpeg,.png">
+
+        @if($test->thumbnail)
+            <div class="mt-2">
+                <img src="{{ asset($test->thumbnail) }}" width="80" class="rounded">
+            </div>
+        @endif
+    </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputPassword4" class="form-label">Start Date</label>
                                                     <input type="date" class="form-control" name="start_date"     value="{{ old('start_date', isset($test->start_date) ? \Carbon\Carbon::parse($test->start_date)->format('Y-m-d') : '') }}"  placeholder="Meta Key" required>

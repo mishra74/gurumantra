@@ -10,7 +10,7 @@ class CreatevideoController extends Controller
     public function index($id){
      // dd($id);
         $data['page'] = 'All Create Videos';
-        $data['create_test'] = CreatevideoModel::withTrashed()->where('volume_id',$id)->get();
+        $data['create_test'] = CreatevideoModel::withTrashed()->where('volume_id',$id)->latest()->get();
         session(['video_volume' => $id]);
         return view('admin.createvideo.index')->with($data);
     }
@@ -31,6 +31,17 @@ class CreatevideoController extends Controller
         }
 
         $data['volume_id'] = session('video_volume');
+          // Upload Thumbnail
+    if ($request->hasFile('thumbnail')) {
+    $file = $request->file('thumbnail');
+
+    $filename = time().'.'.$file->getClientOriginalExtension();
+
+    $file->move('frontend/uploads/video', $filename);
+
+    $validated['thumbnail'] = 'frontend/uploads/video/'.$filename;
+}
+        $data['thumbnail'] = $validated['thumbnail'] ?? null;
         CreatevideoModel::create($data);
       return redirect('admin/recording_create/'.session('video_volume'))->with('success','Test Created Successfully');
 

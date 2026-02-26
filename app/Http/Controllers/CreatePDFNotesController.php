@@ -9,7 +9,7 @@ class CreatePDFNotesController extends Controller
 {
     public function index($id){
         $data['page'] = 'All PDF Notes';
-        $data['create_test'] = CreatePDFNotesModel::withTrashed()->where('volume_id',$id)->get();
+        $data['create_test'] = CreatePDFNotesModel::withTrashed()->where('volume_id',$id)->latest()->get();
         session(['notes_volume' => $id]);
         return view('admin.createpdf.index')->with($data);
     }
@@ -34,10 +34,20 @@ class CreatePDFNotesController extends Controller
       }else{
         $data['live_class'] =0;
       }
+  // Upload Thumbnail
+    if ($request->hasFile('thumbnail')) {
+    $file = $request->file('thumbnail');
 
+    $filename = time().'.'.$file->getClientOriginalExtension();
+
+    $file->move('frontend/uploads/pdfnotes', $filename);
+
+    $validated['thumbnail'] = 'frontend/uploads/pdfnotes/'.$filename;
+}
         $data['volume_id'] = session('notes_volume');
         $data['pdf_enter_question'] = $request->content_upload_question;
         $data['pdf_enter_answer'] = $request->content_upload_answer;
+        $data['thumbnail'] = $validated['thumbnail'] ?? null;
         CreatePDFNotesModel::create($data);
       return redirect('admin/create_pdfnote/'.session('notes_volume'))->with('success','Test Created Successfully');
 
@@ -68,10 +78,21 @@ class CreatePDFNotesController extends Controller
     // Prepare data
     $data = $request->all();
     $data['courses'] = json_encode($request->courses ?? []); // multiple courses as JSON
-
+     
     // Update record
+      // Upload Thumbnail
+    if ($request->hasFile('thumbnail')) {
+    $file = $request->file('thumbnail');
+
+    $filename = time().'.'.$file->getClientOriginalExtension();
+
+    $file->move('frontend/uploads/pdfnotes', $filename);
+
+    $validated['thumbnail'] = 'frontend/uploads/pdfnotes/'.$filename;
+}
+    $data['thumbnail'] = $validated['thumbnail'] ?? null;
     $pdfNote->update($data);
-        return redirect('admin/pdfnotes/all')->with('success','Notes add successfully');
+        return redirect('admin/pdfnotes/all')->with('success','Notes update successfully');
 
     }
 

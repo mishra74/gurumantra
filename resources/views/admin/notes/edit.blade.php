@@ -49,6 +49,17 @@
                                                     @error('title') <small class="text-danger">{{ $message }}</small> @enderror
 
                                                 </div>
+                                                 <!-- Thumbnail -->
+    <div class="col-md-6">
+        <label class="form-label">Thumbnail</label>
+        <input type="file" name="thumbnail" class="form-control" accept=".jpg,.jpeg,.png">
+
+        @if($dailycurrent->thumbnail)
+            <div class="mt-2">
+                <img src="{{ asset($dailycurrent->thumbnail) }}" width="80" class="rounded">
+            </div>
+        @endif
+    </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputPassword4" class="form-label">Sub Title</label>
                                                     <input type="text" class="form-control" name="sub_title" value="{{old('sub_title',$dailycurrent->sub_title)}}" placeholder="Sub Title">

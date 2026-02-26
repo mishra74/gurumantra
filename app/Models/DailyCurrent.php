@@ -16,6 +16,7 @@ class DailyCurrent extends Model
         'content',
         'is_active',
         'thumbnail',
-        'category'
+        'category',
+        'thumbnail',
     ];
 }

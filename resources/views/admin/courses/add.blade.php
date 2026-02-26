@@ -53,6 +53,16 @@
                                                     @error('title') <small class="text-danger">{{ $message }}</small> @enderror
 
                                                 </div>
+                                                <!-- Thumbnail -->
+        <div class="col-md-6">
+            <label class="form-label">Thumbnail</label>
+            <input type="file" name="thumbnail" class="form-control"
+                   accept=".jpg,.jpeg,.png">
+            @error('thumbnail')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
+
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputPassword4" class="form-label">Meta Key</label>
                                                     <input type="text" class="form-control" name="meta_key" value="{{old('meta_key')}}" placeholder="Meta Key" required>

@@ -43,7 +43,8 @@ class Batch extends Model
     'extend_type',
     'course_id',
     'is_active',
-    'coin_percentage'
+    'coin_percentage',
+    'thumbnail'
 ];
 
 

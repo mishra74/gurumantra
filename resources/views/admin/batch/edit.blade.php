@@ -33,6 +33,17 @@
 name="title"
 value="{{old('title',$edit->title)}}" required>
 </div>
+ <!-- Thumbnail -->
+    <div class="col-md-6">
+        <label class="form-label">Thumbnail</label>
+        <input type="file" name="thumbnail" class="form-control" accept=".jpg,.jpeg,.png">
+
+        @if($edit->thumbnail)
+            <div class="mt-2">
+                <img src="{{ asset($edit->thumbnail) }}" width="80" class="rounded">
+            </div>
+        @endif
+    </div>
 
 <div class="mb-3 col-md-6">
 <label class="form-label">Start Date</label>

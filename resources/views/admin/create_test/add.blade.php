@@ -66,6 +66,16 @@
                                                     @error('title') <small class="text-danger">{{ $message }}</small> @enderror
 
                                                 </div>
+                                                <!-- Thumbnail -->
+        <div class="col-md-6">
+            <label class="form-label">Thumbnail</label>
+            <input type="file" name="thumbnail" class="form-control"
+                   accept=".jpg,.jpeg,.png">
+            @error('thumbnail')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
+
                                                 <div class="mb-3 col-md-6 liveclass" style="display:none">
                                                     <label for="inputPassword4" class="form-label">Start Date</label>
                                                     <input type="date" class="form-control requiredfield" name="start_date" value="{{old('start_date')}}" placeholder="Meta Key">

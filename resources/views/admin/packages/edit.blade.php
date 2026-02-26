@@ -49,6 +49,7 @@
                                                     @error('title') <small class="text-danger">{{ $message }}</small> @enderror
 
                                                 </div>
+                                                
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputPassword4" class="form-label">Sub Title</label>
                                                     <input type="text" class="form-control" name="sub_title" value="{{old('sub_title',$dailycurrent->sub_title)}}" placeholder="Sub Title">

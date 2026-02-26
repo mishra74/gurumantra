@@ -13,7 +13,7 @@ class QuestionBankController extends Controller
        
         session(['tagsId' => $id]);
         $data['page'] = 'All Quetions';
-        $data['question'] = QuestionBank::where('tag_id',$id)->get();
+        $data['question'] = QuestionBank::where('tag_id',$id)->latest()->get();
       // dd($data['question']);
         return view('admin.question_banks.index')->with($data);
     }

@@ -11,7 +11,7 @@ class Coursecontroller extends Controller
     public function index()
     {
         $data['page'] = 'All Courses';
-        $data['courses'] = Course::withTrashed()->paginate(10); 
+        $data['courses'] = Course::withTrashed()->latest()->paginate(10); 
        
        return view('admin.courses.index')->with($data);
     }
@@ -40,8 +40,19 @@ class Coursecontroller extends Controller
             'meta_key' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
         ]);
+  // Upload Thumbnail
+    if ($request->hasFile('thumbnail')) {
+    $file = $request->file('thumbnail');
 
-        $course = Course::create($request->all());
+    $filename = time().'.'.$file->getClientOriginalExtension();
+
+    $file->move('frontend/uploads/course', $filename);
+
+    $validated['thumbnail'] = 'frontend/uploads/course/'.$filename;
+}
+        $data = $request->all();
+        $data['thumbnail'] = $validated['thumbnail'] ?? null;
+        $course = Course::create($data);
         return redirect('admin/courses/all')->with('success','Courses add successfully');
     }
 
@@ -56,7 +67,14 @@ class Coursecontroller extends Controller
     public function update(Request $request, $id)
     {
         $course = Course::withTrashed()->findOrFail($id);
-        $course->update($request->all());
+        $data = $request->all();
+        if ($request->hasFile('thumbnail')) {
+            $file = $request->file('thumbnail');
+            $filename = time().'.'.$file->getClientOriginalExtension();
+            $file->move('frontend/uploads/course', $filename);
+            $data['thumbnail'] = 'frontend/uploads/course/'.$filename;
+        }
+        $course->update($data);
          return redirect('admin/courses/all')->with('success','Courses update successfully');
     }
 

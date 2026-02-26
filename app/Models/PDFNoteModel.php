@@ -38,7 +38,8 @@ class PDFNoteModel extends Model
         'discount_three',
         'discount_four',
         'discount_five',
-        'coin_percentage'
+        'coin_percentage',
+        'thumbnail',
        
     ];
 

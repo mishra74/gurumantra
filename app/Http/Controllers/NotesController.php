@@ -9,7 +9,7 @@ class NotesController extends Controller
 {
     public function index(){
         $data['page'] = 'All Daily Current Affairs';
-        $data['dailycurrent'] =  DailyCurrent::all();
+        $data['dailycurrent'] =  DailyCurrent::latest()->paginate(10);
         return view('admin.notes.index')->with($data);
     }
 

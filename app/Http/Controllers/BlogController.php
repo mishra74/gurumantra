@@ -34,6 +34,7 @@ class BlogController extends Controller
         'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png',
         'contents' => 'nullable',
         'meta_key' => 'nullable',
+        'status' => 'nullable|in:0,1',
     ]);
 
     // Upload Thumbnail
@@ -70,6 +71,10 @@ class BlogController extends Controller
         'slug' => 'required|unique:blogs,slug,' . $id,
         'category_id' => 'required',
         'sub_category_id' => 'required',
+        'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png',
+        'contents' => 'nullable',
+        'meta_key' => 'nullable',
+        'status' => 'nullable|in:0,1',
     ]);
 
       if ($request->hasFile('thumbnail')) {
