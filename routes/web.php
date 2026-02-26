@@ -43,6 +43,7 @@ use App\Http\Controllers\HomeLiveController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\HomeBlogController;
 
 
 
@@ -96,6 +97,10 @@ Route::group(['prefix' => 'ckfinder', 'middleware' => ['web']], function () {
     Route::any('/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')
         ->name('ckfinder_browser');
 });
+//blogs
+Route::get('/blogs',[HomeBlogController::class,'blogs'])->name('blogs');
+route::get('/blog/{id}',[HomeBlogController::class,'blog_show'])->name('blog.show');
+
 
 
 Route::middleware(['auth', StudentMiddleware::class])->group(function () {
