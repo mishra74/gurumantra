@@ -1,47 +1,61 @@
 
-      
-@include('layouts.header')
-        <!-- Services Start -->
-        <div class="container-fluid service py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                    <!--<h4 class="text-primary">Our Cources</h4>-->
-                    <!--<h1 class="display-5 mb-4">See Your Best Cources </h1>-->
-                </div>
-                <div class="row g-4">
+    @extends('layouts.master')
+    @section('content')
+    <nav class="navbar navbar-light bg-white shadow-sm sticky-top">
+  <div class="container d-flex justify-content-between align-items-center">
+    <a href="batch-details.html" class="text-decoration-none text-orange fw-bold">
+      <i class="bi bi-arrow-left"></i> Back
+    </a>
+    <span class="fw-bold">Batch Classes</span>
+    <div style="width: 40px;"></div>
+  </div>
+</nav>
 
-                @if(isset($batches) && $batches!='')
+       
+<div class="container mt-3">
+@if(isset($batches) && $batches!='')
                 @foreach($batches as $batch)
-                    <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="service-item">
-                             <div class="service-img d-flex align-items-center justify-content-between p-3"
-             style="height: 272px; background: linear-gradient(135deg, #1e3c72, #2a5298); border-radius: 8px;">
-            
-            <!-- Title dynamic -->
-            <h4 class="text-white fw-bold mb-0" style="font-family: 'Montserrat', sans-serif; 
-                           font-weight: 800; 
-                           font-size: 40px; 
-                           line-height: 1.2; 
-                           margin: 0;">{{$batch->title}}</h4>
+  <!-- CARD 1 -->
+  <div class="card p-4 shadow-sm border-0 mb-3" style="border-radius:15px;">
+    <div class="d-flex gap-3 align-items-center">
 
-            <!-- Icon fix -->
-            <i class="fa fa-book fa-3x text-white ms-3"></i>
+      <img src="{{asset('frontend/images/course-bg.png')}}" style="width:80px;height:80px;border-radius:10px;object-fit:cover;">
+
+      <div class="flex-grow-1">
+        <h6 class="fw-bold mb-1">{{$batch->title}}</h6>
+        <p class="small text-muted mb-2">Topic: {{$batch->topic}}</p>
+
+        <div class="d-flex gap-2">
+          <button class="btn btn-sm btn-orange rounded-pill px-3">Join Now</button>
+          <button class="btn btn-sm btn-outline-dark rounded-pill px-3">Previous Class</button>
         </div>
-                            <div class="rounded-bottom p-4">
-                                <a href="#" class="h4 d-inline-block mb-4"> {{$batch->title}}</a><br>
-                                
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="{{url('/batches_valume/'.$batch->id)}}">Learn More</a>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
+      </div>
+
+      <div class="dropdown">
+        <button class="btn btn-outline-secondary btn-sm rounded-pill px-3" data-bs-toggle="dropdown">
+          More
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+          <li><a class="dropdown-item" href="#">About Class</a></li>
+          <li><a class="dropdown-item" href="#">About Teacher</a></li>
+          <li><a class="dropdown-item" href="test-volume.html">Test Series</a></li>
+          <li><a class="dropdown-item" href="notes-volume.html">Notes</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+ @endforeach
                     @endif
                     
-                    
-                </div>
-            </div>
-        </div>
-        
+
+
+
+</div>
+
+                
+               
 
         <!-- Footer Start -->
- @include('layouts.footer')
+ @endsection

@@ -1,71 +1,49 @@
+@extends('layouts.master')
+@section('content')
+        <nav class="navbar navbar-light bg-white shadow-sm py-3 mb-5 sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-orange" href="online.html">
+                <i class="bi bi-arrow-left"></i> Back
+            </a>
+            <h4 class="fw-800 mb-0">Course Content</h4>
+        </div>
+    </nav>
 
-      
-@include('layouts.header')
-        <!-- Services Start -->
-        <div class="container-fluid service py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                    <!--<h4 class="text-primary">Our Cources</h4>-->
-                    <!--<h1 class="display-5 mb-4">See Your Best Cources </h1>-->
-                </div>
-                <div class="row g-4">
-                    <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="service-item">
-                            <div class="service-img">
-                                <img src="{{asset('frontend/img/service-1.jpg')}}" class="img-fluid rounded-top w-100" alt="Image">
-                            </div>
-                            <div class="rounded-bottom p-4">
-                                <a href="#" class="h4 d-inline-block mb-4"> Batches</a>
-
-                                
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="{{url('/batches_series')}}">Learn More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="service-item">
-                            <div class="service-img">
-                                <img src="{{asset('frontend/img/service-2.jpg')}}" class="img-fluid rounded-top w-100" alt="Image">
-                            </div>
-                            <div class="rounded-bottom p-4">
-                                <a href="#" class="h4 d-inline-block mb-4">Test Series</a><br>
-                               
-                                
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="{{url('/test_series/')}}">Learn More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="service-item">
-                            <div class="service-img">
-                                <img src="{{asset('frontend/img/service-3.jpg')}}" class="img-fluid rounded-top w-100" alt="Image">
-                            </div>
-                            <div class="rounded-bottom p-4">
-                                <a href="#" class="h4 d-inline-block mb-4">Notes</a><br>
-                                
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="{{url('/notes')}}">Learn More</a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="service-item">
-                            <div class="service-img">
-                                <img src="{{asset('frontend/img/service-3.jpg')}}" class="img-fluid rounded-top w-100" alt="Image">
-                            </div>
-                            <div class="rounded-bottom p-4">
-                                <a href="#" class="h4 d-inline-block mb-4">Recording Store</a><br>
-                                
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="{{url('/recording_room')}}">Learn More</a>
-                            </div>
-                        </div>
-                    </div>
-                    
+    <div class="container pb-5">
+        <div class="row g-4">
+            
+            <div class="col-md-6 col-lg-3">
+                <div class="test-card p-3 shadow-sm bg-white text-center h-100 rounded-4">
+                    <img src="{{asset('frontend/images/icons/batch.png')}}" class="img-fluid rounded-3 mb-3" style="height: 100px; object-fit: contain;" alt="Batch">
+                    <h6 class="fw-bold mb-3">Batches</h6>
+                    <a href="{{route('batches.series')}}" class="btn btn-orange w-100 rounded-pill fw-bold py-2 small">Continue / जारी रखें</a>
                 </div>
             </div>
-        </div>
-        
 
-        <!-- Footer Start -->
- @include('layouts.footer')
+            <div class="col-md-6 col-lg-3">
+                <div class="test-card p-3 shadow-sm bg-white text-center h-100 rounded-4">
+                    <img src="{{asset('frontend/images/icons/test-vol.png')}}" class="img-fluid rounded-3 mb-3" style="height: 100px; object-fit: contain;" alt="Test Volume">
+                    <h6 class="fw-bold mb-3">Test Volume</h6>
+                    <a href="{{route('test.series')}}" class="btn btn-orange w-100 rounded-pill fw-bold py-2 small">Continue / जारी रखें</a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="test-card p-3 shadow-sm bg-white text-center h-100 rounded-4">
+                    <img src="{{asset('frontend/images/icons/library.png')}}" class="img-fluid rounded-3 mb-3" style="height: 100px; object-fit: contain;" alt="e-Library">
+                    <h6 class="fw-bold mb-3">e-Library</h6>
+                    <a href="{{route('notes.series')}}" class="btn btn-orange w-100 rounded-pill fw-bold py-2 small">Continue / जारी रखें</a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="test-card p-3 shadow-sm bg-white text-center h-100 rounded-4">
+                    <img src="{{asset('frontend/images/icons/store.png')}}" class="img-fluid rounded-3 mb-3" style="height: 100px; object-fit: contain;" alt="Knowledge Store">
+                    <h6 class="fw-bold mb-3">Knowledge Store</h6>
+                    <a href="#" class="btn btn-orange w-100 rounded-pill fw-bold py-2 small">Continue / जारी रखें</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+ @endsection

@@ -75,11 +75,19 @@
               />
               <h5 class="fw-semibold mb-2">Share & Earn Referral Code</h5>
               <p class="text-muted small mb-4">
-                Invite friends & earn coins on every successful registration.
-              </p>
-              <button class="btn btn-orange w-100 rounded-pill fw-semibold">
+{{isset(Auth::user()->referral_code) && Auth::user()->referral_code !=''? Auth::user()->referral_code : ''}}              </p>
+                     @if(Auth::user())      
+<button class="btn btn-orange w-100 rounded-pill fw-semibold" data-bs-toggle="modal" data-bs-target="#shareReferral">
+
                 <i class="bi bi-share-fill me-2"></i> Share Now
               </button>
+              @else
+              <button class="btn btn-orange w-100 rounded-pill fw-semibold">
+                <a href="{{ route('login') }}" class="text-white text-decoration-none">
+                  <i class="bi bi-share-fill me-2"></i> Share Now
+                </a>
+              </button>
+              @endif
             </div>
           </div>
 

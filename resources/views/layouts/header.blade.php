@@ -22,13 +22,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto align-items-center gap-lg-2">
             <li class="nav-item">
-              <a class="nav-link" href="offline.html">Offline Courses</a>
+              <a class="nav-link" href="{{route('offline.classes')}}">Offline Courses</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="online.html">Online Courses</a>
+              <a class="nav-link" href="{{ route('courses') }}">Online Courses</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="current-affairs.html"
+              <a class="nav-link" href="{{ route('dailyafairs.category') }}"
                 >Daily Current Affairs</a
               >
             </li>

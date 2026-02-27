@@ -45,11 +45,6 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeBlogController;
 
-
-
-
-
-
 Route::get('/',[HomeController::class,'index'])->name('home');
 
 Route::get('/term_and_conditions', [HomeController::class, 'term_and_conditions']);
@@ -70,7 +65,7 @@ Route::post('/student/sendOtp',[AuthController::class,'send_otp'])->name('studen
 Route::get('/student/forgot',[AuthController::class,'forgot'])->name('student.forgoton');
 Route::get('email-otp-confirm',[AuthController::class, 'emailConfirm'])->name('email.otp.form');
 Route::post('email-otp-verify',[AuthController::class, 'emailverify'])->name('email.otp.verify');
-Route::post('otp-verify',[AuthController::class, 'verify_otp'])->name('otp.verify');
+ Route::post('otp-verify',[AuthController::class, 'verify_otp'])->name('otp.verify');
 
 
 Route::post('/create-order', [PaymentController::class, 'createOrder'])->name('create.order');
@@ -99,15 +94,17 @@ Route::group(['prefix' => 'ckfinder', 'middleware' => ['web']], function () {
 });
 //blogs
 Route::get('/blogs',[HomeBlogController::class,'blogs'])->name('blogs');
-route::get('/blog/{id}',[HomeBlogController::class,'blog_show'])->name('blog.show');
-
+Route::get('/blog/{id}',[HomeBlogController::class,'blog_show'])->name('blog.show');
+Route::get('/offline-classes',function(){
+    return view('offline');
+})->name('offline.classes');
 
 
 Route::middleware(['auth', StudentMiddleware::class])->group(function () {
     Route::get('/student/dailycurrentaffair',[FronStudentController::class,'index'])->name('dailyafairs');
     Route::get('/student/day_type/{id}/{category}',[FronStudentController::class,'read_document'])->name('dailyafairs');
     Route::get('/student/read_content/{id}',[FronStudentController::class,'read_content'])->name('read_content');
-    Route::get('/student/category', [FronStudentController::class, 'category']);
+    Route::get('/daily-current-affair/category', [FronStudentController::class, 'category'])->name('dailyafairs.category');
     Route::get('/student/dashboard',[StudentDashboardController::class, 'index'])->name('student.dashboard');
     Route::get('/student/booking',[StudentDashboardController::class, 'booking'])->name('student.booking');
     Route::get('/student/coins',[StudentDashboardController::class, 'coins'])->name('student.coins');
@@ -115,20 +112,20 @@ Route::middleware(['auth', StudentMiddleware::class])->group(function () {
         Route::post('/student/profile/update',[StudentDashboardController::class, 'updateProfile'])->name('student.profile.update');
 
    //batches
-     Route::get('/batches_series',[HomeController::class,'batches_series']);
-     Route::get('/batches_valume/{id}',[HomeController::class,'batches_valume']);
-     Route::get('/Join/class/{id}',[HomeController::class,'join_class']);
-     Route::get('/purchase/class/{id}',[HomeLiveClassCotronller::class,'checkout']);
+     Route::get('/batches_series',[HomeController::class,'batches_series'])->name('batches.series');
+     Route::get('/batches_valume/{id}',[HomeController::class,'batches_valume'])->name('batches.valume');
+     Route::get('/Join/class/{id}',[HomeController::class,'join_class'])->name('join.class');
+     Route::get('/purchase/class/{id}',[HomeLiveClassCotronller::class,'checkout'])->name('purchase.class');
     Route::get('/student/post/{id}', [PostController::class, 'show'])->name('post.show');
-    Route::get('/cources',[HomeController::class,'cources']);
-    Route::get('/cources_type/{id}',[HomeController::class,'cources_type']);
-    Route::get('/test_series',[HomeController::class,'test_series']);
-    Route::get('/tests_valume/{id}',[HomeController::class,'tests_valume']);
+    Route::get('/cources',[HomeController::class,'cources'])->name('courses');
+    Route::get('/cources_type/{id}',[HomeController::class,'cources_type'])->name('cources.type');
+    Route::get('/test_series',[HomeController::class,'test_series'])->name('test.series');
+    Route::get('/tests_valume/{id}',[HomeController::class,'tests_valume'])->name('tests.valume');
 
-    Route::get('/notes',[HomepdfController::class,'note_series']);
-    Route::get('/notes_valume/{id}',[HomepdfController::class,'note_valume']);
-    Route::get('/noteshow/{id}',[HomepdfController::class,'noteshow']);
-    Route::get('/liveclass/{test_id}/{volume_id}',[HomeLiveClassCotronller::class,'liveclass']);
+    Route::get('/notes',[HomepdfController::class,'note_series'])->name('notes.series');
+    Route::get('/notes_valume/{id}',[HomepdfController::class,'note_valume'])->name('notes.valume');
+    Route::get('/noteshow/{id}',[HomepdfController::class,'noteshow'])->name('notes.show');
+    Route::get('/liveclass/{test_id}/{volume_id}',[HomeLiveClassCotronller::class,'liveclass'])->name('liveclass.show');
     Route::post('/save-answer', [HomeLiveClassCotronller::class, 'saveAnswer'])->name('liveclass.saveAnswer');
     Route::post('/submit-test', [HomeLiveClassCotronller::class, 'submitTest'])->name('liveclass.submitTest');
 

@@ -22,7 +22,7 @@ class FronStudentController extends Controller
             $allContent = DailyCurrent::where('is_active',1)->where('category','vvi')->get();
             //dd('test');
          }
-        return view('read_document',compact('allContent'));
+        return view('co-contentlist',compact('allContent'));
     }
 
    public function read_content($id)

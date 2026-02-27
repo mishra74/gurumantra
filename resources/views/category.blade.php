@@ -1,45 +1,63 @@
+@extends('layouts.master')
+@section('content')
+<!-- ===== TITLE ===== -->
+<section class="container text-center ca-title">
+  <h2>
+    Current <span class="text-orange">Affairs</span>
+  </h2>
+  <p>
+    Daily current affairs, mock tests, editorials & magazines  
+    designed for UPSC & State PCS aspirants
+  </p>
+</section>
 
-      
-@include('layouts.header')
-        <!-- Services Start -->
-        <div class="container-fluid service py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                    <h4 class="text-primary">Our Daily Current Affair</h4>
-                    <h4 class="display-6 mb-4">Two Type of Daily Current Affair Listed Here </h4>
-                </div>
-                <div class="row g-4">
-                    
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="service-item">
-                            <div class="service-img">
-                                <img src="{{asset('frontend/img/day1.jpg')}}" class="img-fluid rounded-top w-100" alt="Image">
-                            </div>
-                            <div class="rounded-bottom p-4">
-                                <a href="#" class="h4 d-inline-block mb-4">Daily Current Affairs</a><br>
-                                
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="{{url('/student/day_type/1/1')}}">Learn More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="service-item">
-                            <div class="service-img">
-                                <img src="{{asset('frontend/img/day1.jpg')}}" class="img-fluid rounded-top w-100" alt="Image">
-                            </div>
-                            <div class="rounded-bottom p-4">
-                                <a href="#" class="h4 d-inline-block mb-4">VVI Current Affairs</a><br>
-                                
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="{{url('/student/day_type/2/2')}}">Learn More</a>
-                            </div>
-                        </div>
-                    </div>
+<!-- ===== CONTENT ===== -->
+<section class="container pb-5">
+  <div class="row g-4 justify-content-center">
 
-                    
-                </div>
-            </div>
+    <!-- Daily CA -->
+    <div class="col-md-3 col-sm-6">
+      <a href="{{url('/student/day_type/1/1')}}" class="text-decoration-none">
+        <div class="ca-card">
+          <i class="bi bi-calendar-check"></i>
+          <h6>Daily Current Affairs</h6>
         </div>
-        
+      </a>
+    </div>
 
-        <!-- Footer Start -->
- @include('layouts.footer')
+    <!-- Mock Test -->
+    <div class="col-md-6">
+      <a href="ca-content-list.html" class="text-decoration-none">
+        <div class="ca-card ca-card-highlight">
+          <div>
+            <h5>Daily Mock Test</h5>
+            <p>Practice questions with exam-level difficulty</p>
+          </div>
+          <i class="bi bi-arrow-right"></i>
+        </div>
+      </a>
+    </div>
+
+    <!-- Editorial -->
+    <div class="col-md-3 col-sm-6">
+      <a href="ca-content-list.html" class="text-decoration-none">
+        <div class="ca-card">
+          <i class="bi bi-journal-text"></i>
+          <h6>Editorial</h6>
+        </div>
+      </a>
+    </div>
+
+    <!-- Magazine -->
+    <div class="col-md-3 col-sm-6">
+      <a href="ca-content-list.html" class="text-decoration-none">
+        <div class="ca-card">
+          <i class="bi bi-book"></i>
+          <h6>Magazine</h6>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</section>
+@endsection
