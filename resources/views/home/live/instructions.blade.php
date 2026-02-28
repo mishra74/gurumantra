@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>General Instructions</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
+@extends('layouts.master')
+<link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+        <style>
         body {
             font-family: sans-serif;
             background-color: #f8f9fa;
@@ -52,8 +46,9 @@
             border-radius: 2px;
         }
     </style>
-</head>
-<body>
+
+@section('content')
+
 
 <div class="container py-5">
     <div class="card p-4">
@@ -157,6 +152,4 @@
         document.getElementById('startTestForm').submit();
     });
 </script>
-
-</body>
-</html>
+@endsection

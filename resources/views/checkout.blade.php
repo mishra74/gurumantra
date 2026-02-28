@@ -1,5 +1,5 @@
-@include('layouts.header')
-
+@extends('layouts.master')
+@section('content')
 @php
 $price = 0;
 
@@ -280,3 +280,4 @@ $("#purchase").click(async function () {
 });
 
 </script>
+@endsection

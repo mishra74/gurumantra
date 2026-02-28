@@ -13,8 +13,8 @@
 
        
 <div class="container mt-3">
-@if(isset($batches) && $batches!='')
-                @foreach($batches as $batch)
+@if(isset($classes) && $classes!='')
+                @foreach($classes as $class)
   <!-- CARD 1 -->
   <div class="card p-4 shadow-sm border-0 mb-3" style="border-radius:15px;">
     <div class="d-flex gap-3 align-items-center">
@@ -22,12 +22,12 @@
       <img src="{{asset('frontend/images/course-bg.png')}}" style="width:80px;height:80px;border-radius:10px;object-fit:cover;">
 
       <div class="flex-grow-1">
-        <h6 class="fw-bold mb-1">{{$batch->title}}</h6>
-        <p class="small text-muted mb-2">Topic: {{$batch->topic}}</p>
+        <h6 class="fw-bold mb-1">{{$class->title}}</h6>
+        <p class="small text-muted mb-2">Topic: {{$class->topic}}</p>
 
         <div class="d-flex gap-2">
-          <button class="btn btn-sm btn-orange rounded-pill px-3">Join Now</button>
-          <button class="btn btn-sm btn-outline-dark rounded-pill px-3">Previous Class</button>
+          <button class="btn btn-sm btn-orange rounded-pill px-3"><a href="{{route('join.class',$class->id)}}" class="text-white text-decoration-none">Join Now</a></button>
+          <button class="btn btn-sm btn-outline-dark rounded-pill px-3"><a href="{{route('previous.class',$class->id)}}" class="text-dark text-decoration-none">Previous Class</a></button>
         </div>
       </div>
 

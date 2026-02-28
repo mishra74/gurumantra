@@ -37,8 +37,12 @@
             </li>
 
             <li class="nav-item">
-            <a class="nav-link" href="{{ route('login') }}">Login</a>
-            </li>
+@if(Auth::check())
+                <a class="nav-link" href="{{ route('student.dashboard') }}">Dashboard</a>
+              @else
+                <a class="nav-link" href="{{ route('login') }}">Login</a>
+              @endif
+          </li>
 
 
             <!-- DROPDOWN -->
@@ -52,13 +56,13 @@
                 More Services
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                <li><a class="dropdown-item" href="{{ route('student.profile') }}">Profile</a></li>
                 <li><a class="dropdown-item" href="#">Coupon</a></li>
-                <li><a class="dropdown-item" href="#">Coins</a></li>
+                <li><a class="dropdown-item" href="{{ route('student.coins') }}">Coins</a></li>
                 <li><a class="dropdown-item" href="#">Scholarship</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <a class="dropdown-item" href="#">Purchase / My Order</a>
+                  <a class="dropdown-item" href="{{ route('student.booking') }}">Purchase / My Order</a>
                 </li>
               </ul>
             </li>

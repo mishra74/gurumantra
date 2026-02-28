@@ -115,6 +115,7 @@ Route::middleware(['auth', StudentMiddleware::class])->group(function () {
      Route::get('/batches_series',[HomeController::class,'batches_series'])->name('batches.series');
      Route::get('/batches_valume/{id}',[HomeController::class,'batches_valume'])->name('batches.valume');
      Route::get('/Join/class/{id}',[HomeController::class,'join_class'])->name('join.class');
+     Route::get('/previous/class/{id}',[HomeController::class,'previous_class'])->name('previous.class');
      Route::get('/purchase/class/{id}',[HomeLiveClassCotronller::class,'checkout'])->name('purchase.class');
     Route::get('/student/post/{id}', [PostController::class, 'show'])->name('post.show');
     Route::get('/cources',[HomeController::class,'cources'])->name('courses');

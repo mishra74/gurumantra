@@ -1,5 +1,5 @@
-@include('layouts.header')
-
+@extends('layouts.master')
+@section('content')
 @php
 
 $AfterDiscount = 0;
@@ -489,3 +489,4 @@ function getprice(mrp, discount, price) {
     });
 }
 </script>
+@endsection

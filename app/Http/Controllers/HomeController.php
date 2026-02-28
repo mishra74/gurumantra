@@ -20,24 +20,22 @@ use Carbon\Carbon;
 
 class HomeController extends Controller
 {
-    public function index(){
+  public function index(){
 
         $baseUrl = url('/referral'); 
 
 if (Auth::check()) {
    
     $referralCode = Auth::user()->referral_code ?? Auth::id();
-    $url = $baseUrl . '/' . $referralCode;
+    $url= $baseUrl . '/' . $referralCode;
 } else {
    
     $url = url('/');
 }
 
-
-$url = urlencode($url);
-        return view('index',compact('url'));
+$data['latest_tests'] = CreateModel::latest()->take(3)->get();$url = urlencode($url);
+        return view('index')->with($data);
     }
-
     public function cources(){
         $data['Courses'] = Course::where('is_active',1)->whereNull('deleted_at')->get();
         return view('cources')->with($data);
@@ -56,7 +54,7 @@ $url = urlencode($url);
     // ->whereRaw("JSON_CONTAINS(courses, '\"$courseId\"')")
     ->get();
    // dd($data['tests']);
-        return view('batches_series')->with($data);
+        return view('batches')->with($data);
     }
     
   public function batches_valume($id)
@@ -79,7 +77,7 @@ $url = urlencode($url);
 
     $data['batche'] = Batch::findOrFail($id);
 
-    return view('allclasses', $data);
+    return view('batches_series', $data);
 }
 
 
@@ -88,9 +86,14 @@ public function join_class($id){
       
     
     $userId = Auth::id();
-     $test_volume = session('volumeId');
-
-    $test = Batch::find($test_volume);
+     $batch_volume = session('volumeId');
+$order= OrderBatch::where('user_id', $userId)
+        ->where('batch_volume', $batch_volume)
+        ->first();
+        if(!$order){
+            return redirect('/purchase/class/'.$batch_volume)->with('error','Please purchase the batch to join the class.');
+        }
+    $test = Batch::find($batch_volume);
 
     $startDate = Carbon::parse($test->start_date)->format('Y-m-d');
     $todayDate = Carbon::now()->format('Y-m-d');

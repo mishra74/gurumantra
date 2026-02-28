@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Live Test | Dashboard</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+@extends('layouts.master')
+<link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
 
 <style>:root {
   --primary: #dc3f3f;
@@ -462,8 +456,8 @@ body {
 }
 </style>
 
-</head>
-<body>
+    @section('content')
+
 
 <div class="test-ui-wrapper">
 
@@ -939,5 +933,4 @@ function renderChart(attempted, unattempted) {
 }
 </script>
 
-</body>
-</html>
+@endsection

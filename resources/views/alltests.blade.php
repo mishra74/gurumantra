@@ -1,59 +1,82 @@
+@extends('layouts.master')
+@section('content')
+        <div class="container mt-4">
 
-      
-@include('layouts.header')
-        <!-- Services Start -->
-        <div class="container-fluid service py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                    <!--<h4 class="text-primary">Our Tests</h4>-->
-                    <!--<h1 class="display-5 mb-4">See Your Tests </h1>-->
-                </div>
-                <div class="row g-4">
+  <h5 class="fw-bold mb-3">List of Test Sets</h5>
+
+                
 
                 @if(isset($tests) && $tests!='')
                 @foreach($tests as $test)
-                    <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="service-item">
-                             <div class="service-img d-flex align-items-center justify-content-between p-3"
-             style="height: 272px; background: linear-gradient(135deg, #1e3c72, #2a5298); border-radius: 8px;">
-            
-            <!-- Title dynamic -->
-            <h4 class="text-white fw-bold mb-0" style="font-family: 'Montserrat', sans-serif; 
-                           font-weight: 800; 
-                           font-size: 40px; 
-                           line-height: 1.2; 
-                           margin: 0;">{{$test->title}}</h4>
+                   <!-- Test Set Card -->
+  <div class="card border-0 shadow-sm mb-3" style="border-radius:16px;">
+    <div class="card-body">
 
-            <!-- Icon fix -->
-            <i class="fa fa-book fa-3x text-white ms-3"></i>
+      <div class="d-flex align-items-center gap-3">
+        <!-- Thumbnail -->
+        <img src="{{ asset($test->thumbnail ?? 'frontend/images/icons/test.png') }}" alt="Test Thumbnail"
+             style="width:70px;height:70px;border-radius:12px;object-fit:cover;">
+
+        <!-- Name -->
+        <div class="flex-grow-1">
+          <h6 class="fw-bold mb-1">{{ $test->title }}</h6>
+          <small class="text-muted">{{ $test->questions_count }} Questions</small>
         </div>
-                            <div class="rounded-bottom p-4">
-                                <a href="#" class="h4 d-inline-block mb-4"> {{$test->title}}</a><br>
-                                
-                                
-                                <a class="btn btn-success rounded-pill mt-1 px-2" href="{{url('/pdf/'.$test->id)}}">PDF Test</a>
-                                <!-- <a class="btn btn-warning rounded-pill mt-1 px-2" href="{{url('/practice/'.$test->id)}}">Practice Test</a> -->
-                                @if($test->live_class == 1)
-                                <a class="btn btn-primary rounded-pill mt-1 px-2" href="{{route('live.index',$test->id)}}">Live Test</a>
-                                 <!--<a class="btn btn-warning rounded-pill mt-1 px-2" href="{{url('/liveclass/'.$test->id.'/'.$test->volume_id)}}">Practice Test</a>-->
-                                <a class="btn btn-warning rounded-pill mt-1 px-2" href="{{route('practise.index')}}">Practice Test</a>
+      </div>
+@if($test->live_class===1)
+      <!-- Buttons -->
+      <div class="d-flex gap-2 mt-3">
+        <button class="btn btn-danger w-100" onclick="window.location.href='{{route('live.start',$test->id)}}'">
+          Live
+        </button>
 
-                                 
-                                @endif
-                               
-                                
-                                
-                            </div>
-                        </div>
-                    </div>
+        <button class="btn btn-success w-100" onclick="window.location.href='{{route('practice.start',$test->id)}}'">
+          Practice
+        </button>
+@endif
+        <button class="btn btn-primary w-100"
+          onclick="window.location.href='#'">
+          PDF Test
+        </button>
+      </div>
+
+    </div>
+  </div>
                     @endforeach
                     @endif
                     
-                    
-                </div>
-            </div>
-        </div>
-        
+         
+</div>
 
+<!-- Language Modal -->
+<div class="modal fade" id="langModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow" style="border-radius:16px;">
+      <div class="modal-body text-center p-4">
+        <h6 class="fw-bold mb-3">Choose Language</h6>
+        <button class="btn btn-outline-primary w-100 mb-2"
+          onclick="goNext('hindi')">Hindi</button>
+        <button class="btn btn-outline-primary w-100"
+          onclick="goNext('english')">English</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+let mode = "";
+
+function setMode(type) {
+  mode = type;
+}
+
+function goNext(language) {
+  if (mode === "live") {
+    window.location.href = "live-test.html?lang=" + language;
+  }
+  if (mode === "practice") {
+    window.location.href = "practice-test.html?lang=" + language;
+  }
+}
+</script>
         <!-- Footer Start -->
- @include('layouts.footer')
+ @endsection
