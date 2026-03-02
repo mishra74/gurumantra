@@ -99,26 +99,14 @@ Route::get('/offline-classes',function(){
     return view('offline');
 })->name('offline.classes');
 
-
-Route::middleware(['auth', StudentMiddleware::class])->group(function () {
-    Route::get('/student/dailycurrentaffair',[FronStudentController::class,'index'])->name('dailyafairs');
+ Route::get('/student/dailycurrentaffair',[FronStudentController::class,'index'])->name('dailyafairs');
     Route::get('/student/day_type/{id}/{category}',[FronStudentController::class,'read_document'])->name('dailyafairs');
     Route::get('/student/read_content/{id}',[FronStudentController::class,'read_content'])->name('read_content');
     Route::get('/daily-current-affair/category', [FronStudentController::class, 'category'])->name('dailyafairs.category');
-    Route::get('/student/dashboard',[StudentDashboardController::class, 'index'])->name('student.dashboard');
-    Route::get('/student/booking',[StudentDashboardController::class, 'booking'])->name('student.booking');
-    Route::get('/student/coins',[StudentDashboardController::class, 'coins'])->name('student.coins');
-        Route::get('/student/profile',[StudentDashboardController::class, 'profile'])->name('student.profile');
-        Route::post('/student/profile/update',[StudentDashboardController::class, 'updateProfile'])->name('student.profile.update');
-
-   //batches
+    //batches
      Route::get('/batches_series',[HomeController::class,'batches_series'])->name('batches.series');
      Route::get('/batches_valume/{id}',[HomeController::class,'batches_valume'])->name('batches.valume');
-     Route::get('/Join/class/{id}',[HomeController::class,'join_class'])->name('join.class');
-     Route::get('/previous/class/{id}',[HomeController::class,'previous_class'])->name('previous.class');
-     Route::get('/purchase/class/{id}',[HomeLiveClassCotronller::class,'checkout'])->name('purchase.class');
-    Route::get('/student/post/{id}', [PostController::class, 'show'])->name('post.show');
-    Route::get('/cources',[HomeController::class,'cources'])->name('courses');
+Route::get('/cources',[HomeController::class,'cources'])->name('courses');
     Route::get('/cources_type/{id}',[HomeController::class,'cources_type'])->name('cources.type');
     Route::get('/test_series',[HomeController::class,'test_series'])->name('test.series');
     Route::get('/tests_valume/{id}',[HomeController::class,'tests_valume'])->name('tests.valume');
@@ -127,6 +115,21 @@ Route::middleware(['auth', StudentMiddleware::class])->group(function () {
     Route::get('/notes_valume/{id}',[HomepdfController::class,'note_valume'])->name('notes.valume');
     Route::get('/noteshow/{id}',[HomepdfController::class,'noteshow'])->name('notes.show');
     Route::get('/liveclass/{test_id}/{volume_id}',[HomeLiveClassCotronller::class,'liveclass'])->name('liveclass.show');
+
+Route::middleware(['auth', StudentMiddleware::class])->group(function () {
+   
+    Route::get('/student/dashboard',[StudentDashboardController::class, 'index'])->name('student.dashboard');
+    Route::get('/student/booking',[StudentDashboardController::class, 'booking'])->name('student.booking');
+    Route::get('/student/coins',[StudentDashboardController::class, 'coins'])->name('student.coins');
+        Route::get('/student/profile',[StudentDashboardController::class, 'profile'])->name('student.profile');
+        Route::post('/student/profile/update',[StudentDashboardController::class, 'updateProfile'])->name('student.profile.update');
+
+   
+     Route::get('/Join/class/{id}',[HomeController::class,'join_class'])->name('join.class');
+     Route::get('/previous/class/{id}',[HomeController::class,'previous_class'])->name('previous.class');
+     Route::get('/purchase/class/{id}',[HomeLiveClassCotronller::class,'checkout'])->name('purchase.class');
+    Route::get('/student/post/{id}', [PostController::class, 'show'])->name('post.show');
+    
     Route::post('/save-answer', [HomeLiveClassCotronller::class, 'saveAnswer'])->name('liveclass.saveAnswer');
     Route::post('/submit-test', [HomeLiveClassCotronller::class, 'submitTest'])->name('liveclass.submitTest');
 

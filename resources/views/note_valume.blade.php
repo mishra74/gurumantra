@@ -1,49 +1,34 @@
+@extends('layouts.master')
+      @section('content')
+       <nav class="navbar navbar-light bg-white shadow-sm sticky-top">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a href="batch-details.html" class="text-decoration-none text-orange fw-bold">
+            <i class="bi bi-arrow-left"></i> Back
+        </a>
+        <span class="fw-bold">Notes Volume</span>
+        <div style="width: 40px;"></div>
+    </div>
+</nav>
+<!-- Services Start -->
+<div class="container mt-4">
+    <h5 class="fw-bold mb-3 text-secondary">List of Test Series</h5>
 
-      
-@include('layouts.header')
-        <!-- Services Start -->
-        <div class="container-fluid service py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                    <h4 class="text-primary">Our Cources</h4>
-                    <h1 class="display-5 mb-4">See Your Best Notes </h1>
-                </div>
-                <div class="row g-4">
 
                 @if(isset($tests) && $tests!='')
                 @foreach($tests as $test)
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="service-item">
-                            <div class="service-img d-flex align-items-center justify-content-between p-3"
-             style="height: 272px; background: linear-gradient(135deg, #1e3c72, #2a5298); border-radius: 8px;">
-            
-            <!-- Title dynamic -->
-            <h4 class="text-white fw-bold mb-0" style="font-family: 'Montserrat', sans-serif; 
-                           font-weight: 800; 
-                           font-size: 40px; 
-                           line-height: 1.2; 
-                           margin: 0;">{{$test->title}}</h4>
+                    <div class="card p-3 module-card shadow-sm border-0 mb-3 d-flex flex-row justify-content-between align-items-center bg-white"
+        style="border-radius: 15px;">
 
-            <!-- Icon fix -->
-            <i class="fa fa-book fa-3x text-white ms-3"></i>
-        </div>
-                            <div class="rounded-bottom p-4">
-                                <a href="#" class="h4 d-inline-block mb-4"> {{$test->title}}</a><br>
-                                
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="{{url('/notes_valume/'.$test->id)}}">Learn More</a>
-
-                            
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                    @endif
-                    
-                    
-                </div>
+        <div class="d-flex align-items-center">
+            <img src="{{asset($test->thumbnail??'frontend/images/icons/test.png')}}" width="45" class="me-3" alt="">
+            <div>
+                <h6 class="fw-bold mb-0">{{$test->title}}</h6>
             </div>
         </div>
-        
+        <a href="{{ route('notes.valume', $test->id) }}" class="btn btn-orange btn-sm rounded-pill px-3">Continue / जारी रखें</a>
+    </div>
 
-        <!-- Footer Start -->
- @include('layouts.footer')
+@endforeach
+@endif
+</div>
+        @endsection

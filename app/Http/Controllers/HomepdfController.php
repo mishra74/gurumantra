@@ -119,7 +119,9 @@ if (Carbon::now()->lt($test->start_date)) {
         ->whereNull('deleted_at')
         ->where('id',$id)
         ->first();
-       //dd($data['checkout']);
+        if(!$data['checkout']){
+            return redirect()->back()->with('error', 'Note not found');
+        }
        //dd($data['checkout']);
 $data['coupons']=Coupon::where('test_series',1)->orwhere('all',1)->get();       
         if($data['checkout']['extend_type']==='fixed'){

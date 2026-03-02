@@ -13,7 +13,7 @@ class TagController extends Controller
 
     session(['quetion_id' => $id]);
 
-    $data['tags'] = Tags::withTrashed()
+    $data['tags'] = Tags::withTrashed()->where('quetion_id', $id)
                         ->orderBy('id','desc')
                         ->paginate(10);
 

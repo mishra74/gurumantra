@@ -9,7 +9,7 @@
 }
 
 body {
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Segoe UI", sans-serif;5
   background-color: var(--bg-light);
 }
 
