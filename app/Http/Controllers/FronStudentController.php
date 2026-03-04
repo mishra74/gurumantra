@@ -16,12 +16,8 @@ class FronStudentController extends Controller
     }
 
     public function read_document($id,$category){
-         if($id == 1 ){
-            $allContent = DailyCurrent::where('is_active',1)->where('category','daily')->get();
-         }else{
-            $allContent = DailyCurrent::where('is_active',1)->where('category','vvi')->get();
-            //dd('test');
-         }
+    
+            $allContent = DailyCurrent::where('is_active',1)->where('category',$category)->get();
         return view('co-contentlist',compact('allContent'));
     }
 

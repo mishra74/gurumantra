@@ -10,7 +10,7 @@ use App\Models\PurchasedModel;
 
 class HomePractiseController extends Controller
 {
-    public function index()
+    public function index($id)
     {
         $data['languages']=Language::all();
         // Store values in session

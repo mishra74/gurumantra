@@ -17,7 +17,7 @@
 
     <!-- Daily CA -->
     <div class="col-md-3 col-sm-6">
-      <a href="{{url('/student/day_type/1/1')}}" class="text-decoration-none">
+      <a href="{{url('/student/day_type/1/{daily}')}}" class="text-decoration-none">
         <div class="ca-card">
           <i class="bi bi-calendar-check"></i>
           <h6>Daily Current Affairs</h6>
@@ -27,7 +27,7 @@
 
     <!-- Mock Test -->
     <div class="col-md-6">
-      <a href="ca-content-list.html" class="text-decoration-none">
+      <a href="{{route('mocktest.volume')}}" class="text-decoration-none">
         <div class="ca-card ca-card-highlight">
           <div>
             <h5>Daily Mock Test</h5>
@@ -40,7 +40,7 @@
 
     <!-- Editorial -->
     <div class="col-md-3 col-sm-6">
-      <a href="ca-content-list.html" class="text-decoration-none">
+      <a href="{{url('/student/day_type/1/{daily}')}}" class="text-decoration-none">
         <div class="ca-card">
           <i class="bi bi-journal-text"></i>
           <h6>Editorial</h6>
@@ -50,7 +50,7 @@
 
     <!-- Magazine -->
     <div class="col-md-3 col-sm-6">
-      <a href="ca-content-list.html" class="text-decoration-none">
+      <a href="{{url('/student/day_type/1/{daily}')}}" class="text-decoration-none">
         <div class="ca-card">
           <i class="bi bi-book"></i>
           <h6>Magazine</h6>

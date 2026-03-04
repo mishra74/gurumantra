@@ -88,6 +88,10 @@
                     <li>
                         <a href="{{route('all.notes')}}">📒 All DCA</a>
                     </li>
+                     <li>
+                        <a href="{{route('mock_test.all')}}">📒 All Mock Test</a>
+                    </li>
+                    
                   
                 </ul>
             </div>

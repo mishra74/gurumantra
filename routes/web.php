@@ -44,6 +44,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeBlogController;
+use App\Http\Controllers\MockTestVolumeController;
+use App\Http\Controllers\MockTestController;
+ use App\Http\Controllers\HomeMockTestController;
 
 Route::get('/',[HomeController::class,'index'])->name('home');
 
@@ -106,7 +109,7 @@ Route::get('/offline-classes',function(){
     //batches
      Route::get('/batches_series',[HomeController::class,'batches_series'])->name('batches.series');
      Route::get('/batches_valume/{id}',[HomeController::class,'batches_valume'])->name('batches.valume');
-Route::get('/cources',[HomeController::class,'cources'])->name('courses');
+    Route::get('/cources',[HomeController::class,'cources'])->name('courses');
     Route::get('/cources_type/{id}',[HomeController::class,'cources_type'])->name('cources.type');
     Route::get('/test_series',[HomeController::class,'test_series'])->name('test.series');
     Route::get('/tests_valume/{id}',[HomeController::class,'tests_valume'])->name('tests.valume');
@@ -115,6 +118,7 @@ Route::get('/cources',[HomeController::class,'cources'])->name('courses');
     Route::get('/notes_valume/{id}',[HomepdfController::class,'note_valume'])->name('notes.valume');
     Route::get('/noteshow/{id}',[HomepdfController::class,'noteshow'])->name('notes.show');
     Route::get('/liveclass/{test_id}/{volume_id}',[HomeLiveClassCotronller::class,'liveclass'])->name('liveclass.show');
+        Route::get('/Mocktest-volume',[HomeMockTestController::class,'mocktest_volume'])->name('mocktest.volume');
 
 Route::middleware(['auth', StudentMiddleware::class])->group(function () {
    
@@ -152,7 +156,7 @@ Route::middleware(['auth', StudentMiddleware::class])->group(function () {
     Route::get('/student/success',[PurchasedController::class,'success']);
     Route::get('/student/notes/success',[PurchasedController::class,'successnotes']);
  
-    Route::get('/student/practise',[HomePractiseController::class,'index'])->name('practise.index');
+    Route::get('/student/practise/{id}',[HomePractiseController::class,'index'])->name('practise.index');
     Route::get('/student/practise/instructions',[HomePractiseController::class,'instructions'])->name('practise.instructions');
     Route::get('/student/practise/start',[HomePractiseController::class,'start'])->name('practise.start');
     Route::get('/student/practise/result',[HomePractiseController::class,'result'])->name('practise.result');
@@ -255,7 +259,30 @@ Route::put('admin/test_creates/edit/{id}', [TestCreateController::class, 'update
 Route::get('admin/test_creates/delete/{id}', [TestCreateController::class, 'destroy'])->name('createst.delete');  
 Route::get('admin/test_creates/restore/{id}', [TestCreateController::class, 'restore'])->name('createst.restore');  
 Route::get('admin/test_creates/toggle/{id}', [TestCreateController::class, 'toggleActive'])->name('createst.toggle');
+//mock test
+//test volume routs
+    Route::get('admin/mock_test/all', [MockTestVolumeController::class, 'index'])->name('mock_test.all'); 
+    Route::get('admin/mock_test/add', [MockTestVolumeController::class, 'add'])->name('add.mock_test'); 
+    Route::get('admin/mock_test/edit/{id}', [MockTestVolumeController::class, 'show']); 
+    Route::post('admin/mock_test/update/{id}', [MockTestVolumeController::class, 'update'])->name('update.mock_test'); 
 
+    Route::post('admin/mock_test/store', [MockTestVolumeController::class, 'store'])->name('mock_test.store'); 
+    Route::get('admin/mock_test/delete/{id}', [MockTestVolumeController::class, 'destroy'])->name('mock_test.delete');  
+    Route::get('admin/mock_test/delete/permanent/{id}', [MockTestVolumeController::class, 'destroy_permanent'])->name('mock_test.delete.permanent'); 
+    Route::get('admin/mock_test/restore/{id}', [MockTestVolumeController::class, 'restore'])->name('mock_test.restore');  
+    Route::get('admin/mock_test/toggle/{id}', [MockTestVolumeController::class, 'toggleActive'])->name('mock_test.toggle');
+
+
+//mock test create routs
+Route::get('admin/mock_test_create/{id}', [MockTestController::class, 'index']); 
+Route::get('admin/mock_test_creates/add', [MockTestController::class, 'add'])->name('add.createst'); 
+Route::post('admin/mock_test_creates/store', [MockTestController::class, 'store'])->name('createmock.store'); 
+Route::get('admin/mock_test_creates/edit/{id}', [MockTestController::class, 'edit'])->name('createmock.edit'); 
+Route::put('admin/mock_test_creates/edit/{id}', [MockTestController::class, 'update'])->name('createmock.update'); 
+
+Route::get('admin/mock_test_creates/delete/{id}', [MockTestController::class, 'destroy'])->name('createmock.delete');  
+Route::get('admin/mock_test_creates/restore/{id}', [MockTestController::class, 'restore'])->name('createmock.restore');  
+Route::get('admin/mock_test_creates/toggle/{id}', [MockTestController::class, 'toggleActive'])->name('createmock.toggle');
     
 //craete questions
 Route::get('admin/questions/all', [QuestionsController::class, 'index'])->name('questions.all'); 
