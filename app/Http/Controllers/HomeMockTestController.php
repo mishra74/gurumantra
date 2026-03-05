@@ -108,7 +108,6 @@ if (Carbon::now()->lt($test->start_date)) {
        $courseId = session('courcesID');
         $data['tests'] = VolumeMockTest::where('is_active', 1)
     ->whereNull('deleted_at')
-    ->whereRaw("JSON_CONTAINS(courses, '\"$courseId\"')")
     ->get();
    // dd($data['tests']);
         return view('mocktest_volume')->with($data);
