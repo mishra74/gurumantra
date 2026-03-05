@@ -14,6 +14,7 @@ use App\Models\Batch;
 use App\Models\OrderBatch;
 use App\Models\Coupon;
 use App\Models\ClassModel;
+use App\Models\MockTest;
 use Carbon\Carbon;
 use App\Models\VolumeMockTest;
 class HomeMockTestController extends Controller
@@ -105,7 +106,7 @@ if (Carbon::now()->lt($test->start_date)) {
 }
     public function mocktest_volume(){
        
-       $courseId = session('courcesID');
+       
         $data['tests'] = VolumeMockTest::where('is_active', 1)
     ->whereNull('deleted_at')
     ->get();
@@ -116,16 +117,16 @@ if (Carbon::now()->lt($test->start_date)) {
 
     public function mocktest_series($id){
         session(['volumeId' => $id]);
-        session(['type' => 'Tests']);
+        session(['type' => 'MockTest']);
         $userId = Auth::id();
 
-        // Check if user has purchased this volume
+
         $data['hasPurchased'] = PurchasedModel::where('user_id', $userId)
             ->where('test_volume', $id)
             ->exists();
 
         // Fetch active notes
-        $data['tests'] = VolumeMockTest::where('is_active', 1)
+        $data['tests'] = MockTest::where('is_active', 1)
             ->whereNull('deleted_at')
             ->where('volume_id', $id)
             ->get();
@@ -148,42 +149,8 @@ if (Carbon::now()->lt($test->start_date)) {
         }
 
         // If not purchased, still show notes (free preview?)
-        return view('alltests')->with($data);
-     // Store volume ID in session
-    session(['volumeId' => $id]);
-    session(['type' => 'Tests']);
-    $userId = Auth::id();
+        return view('allmocktest')->with($data);
 
-    // Check if user has purchased this volume
-    $data['hasPurchased'] = PurchasedModel::where('user_id', $userId)
-        ->where('test_volume', $id)
-        ->exists();
-
-    // Fetch active notes
-    $data['tests'] = VolumeMockTest::where('is_active', 1)
-        ->whereNull('deleted_at')
-        ->where('volume_id', $id)
-        ->get();
-
-    // If user has purchased
-    if ($data['hasPurchased']) {
-
-        $test = VolumeMockTest::find($id);
-
-        // Safety check
-        if (!$test) {
-            abort(404, 'Note volume not found');
-        }
-        // Allow access only if start_date has arrived
-        if ($test->start_date <= now()) {
-            return view('allmocktest', $data);
-        } else {
-            return view('alert', compact('id'));
-        }
-    }
-
-    // If not purchased, still show notes (free preview?)
-    return view('allmocktest')->with($data);
      
         
     }

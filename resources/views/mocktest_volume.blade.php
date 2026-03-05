@@ -5,13 +5,13 @@
         <a href="batch-details.html" class="text-decoration-none text-orange fw-bold">
             <i class="bi bi-arrow-left"></i> Back
         </a>
-        <span class="fw-bold">Test Volume</span>
+        <span class="fw-bold">Mock Test Volume</span>
         <div style="width: 40px;"></div>
     </div>
 </nav>
 <!-- Services Start -->
 <div class="container mt-4">
-    <h5 class="fw-bold mb-3 text-secondary">List of Test Series</h5>
+    <h5 class="fw-bold mb-3 text-secondary">List of Mock Test Series</h5>
 
 
     @if(isset($tests) && $tests!='')
@@ -26,7 +26,7 @@
                 <small class="text-muted">Total 15 Tests</small>
             </div>
         </div>
-        <a href="{{ route('tests.valume', $test->id) }}" class="btn btn-orange btn-sm rounded-pill px-3">Continue / जारी रखें</a>
+        <a href="{{ route('mocktest.series', $test->id) }}" class="btn btn-orange btn-sm rounded-pill px-3">Continue / जारी रखें</a>
     </div>
 
 @endforeach

@@ -119,6 +119,8 @@ Route::get('/offline-classes',function(){
     Route::get('/noteshow/{id}',[HomepdfController::class,'noteshow'])->name('notes.show');
     Route::get('/liveclass/{test_id}/{volume_id}',[HomeLiveClassCotronller::class,'liveclass'])->name('liveclass.show');
         Route::get('/Mocktest-volume',[HomeMockTestController::class,'mocktest_volume'])->name('mocktest.volume');
+                Route::get('/Mocktest-series/{id}',[HomeMockTestController::class,'mocktest_series'])->name('mocktest.series');
+
 
 Route::middleware(['auth', StudentMiddleware::class])->group(function () {
    
