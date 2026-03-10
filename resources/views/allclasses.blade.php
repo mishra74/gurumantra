@@ -41,13 +41,14 @@ $volumeId=session('volumeId');
                                 <a class="btn btn-primary rounded-pill mt-1 px-2" href="#">Live Test</a>
                                 @endif
                                  @if(!$OrderBatch)
-                               
-                                <a class="btn btn-success rounded-pill mt-1 px-2" href="{{url('/purchase/class/'.$batche->id)}}">Join Now</a>
+                                                               <a class="btn btn-success rounded-pill mt-1 px-2" href="{{ url('/create-meeting') }}" target="_blank">Join Now</a>
+
+                                <!-- <a class="btn btn-success rounded-pill mt-1 px-2" href="{{url('/purchase/class/'.$batche->id)}}">Join Now</a> -->
                                 <a class="btn btn-warning rounded-pill mt-1 px-2" href="{{url('/purchase/class/'.$batche->id)}}">Previous</a>
 
                                 @else
                                 
-                                <a class="btn btn-success rounded-pill mt-1 px-2" href="{{url('/Join/class/'.$class->id)}}">Join Now</a>
+                                <a class="btn btn-success rounded-pill mt-1 px-2" href="{{ $class->join_url }}" target="_blank">Join Now</a>
 <a class="btn btn-warning rounded-pill mt-1 px-2" href="{{url('/liveclass/'.$class->id.'/'.$volumeId)}}">Previous</a>
                                 @endif
                                 <!-- <a class="btn btn-warning rounded-pill mt-1 px-2" href="{{url('/practice/'.$class->id)}}">Practice Test</a> -->

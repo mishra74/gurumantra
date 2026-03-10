@@ -43,10 +43,12 @@ use App\Http\Controllers\HomeLiveController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ClassListController;
 use App\Http\Controllers\HomeBlogController;
 use App\Http\Controllers\MockTestVolumeController;
 use App\Http\Controllers\MockTestController;
  use App\Http\Controllers\HomeMockTestController;
+use App\Http\Controllers\ZoomController;
 
 Route::get('/',[HomeController::class,'index'])->name('home');
 
@@ -173,7 +175,6 @@ Route::get('student/get-question/{id}', [HomeLiveController::class, 'getQuestion
 Route::get('admin/get-question/{id}', [SectionController::class, 'getQuestion'])->name('get.question');
 Route::get('/result/download/{id}', [HomeLiveController::class, 'downloadPdf'])
     ->name('result.download');
-    
 });
 
 
@@ -216,7 +217,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 
 
 
-    //classess routs
+    //class room routs
     Route::get('admin/class/all', [ClassController::class, 'index'])->name('class.all'); 
     Route::get('admin/class/add', [ClassController::class, 'add'])->name('add.class'); 
     Route::get('admin/class/edit/{id}', [ClassController::class, 'edit'])->name('add.edit'); 
@@ -226,7 +227,17 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('admin/class/delete/permanent/{id}', [ClassController::class, 'destroy_permanent'])->name('class.delete.permanent');  
     Route::get('admin/class/restore/{id}', [ClassController::class, 'restore'])->name('class.restore');  
     Route::get('admin/class/toggle/{id}', [ClassController::class, 'toggleActive'])->name('class.toggle');
-
+ //class list routs
+    Route::get('admin/classlist/all/{id}', [ClassListController::class, 'index'])->name('classlist.all'); 
+    Route::get('admin/classlist/add/{id}', [ClassListController::class, 'add'])->name('add.classlist'); 
+    Route::get('admin/classlist/edit/{id}', [ClassListController::class, 'edit'])->name('classlist.edit'); 
+    // Route::post('admin/classlist/store', [ClassListController::class, 'store'])->name('classlist.store'); 
+    Route::put('admin/classlist/update/{id}', [ClassListController::class, 'update'])->name('classlist.update'); 
+    Route::get('admin/classlist/delete/{id}', [ClassListController::class, 'destroy'])->name('classlist.delete');
+    Route::get('admin/classlist/delete/permanent/{id}', [ClassListController::class, 'destroy_permanent'])->name('classlist.delete.permanent');  
+    Route::get('admin/classlist/restore/{id}', [ClassListController::class, 'restore'])->name('classlist.restore');  
+    Route::get('admin/classlist/toggle/{id}', [ClassListController::class, 'toggleActive'])->name('classlist.toggle');
+    Route::post('/create-meeting',[ZoomController::class,'store'])->name('classlist.store');
 
     //teachers routs
     Route::get('admin/teacher/all/{id}', [TeacherController::class, 'index'])->name('teacher.all'); 

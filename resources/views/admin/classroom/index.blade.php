@@ -61,6 +61,9 @@
                                                     <td>{{ $classe->updated_at->format('d-m-Y H:i') }}</td>
                                                     
                                                     <td>
+                                                        <a href="{{ route('classlist.all', $classe->id) }}">
+                                                            <i class="fa fa-plus text-info"></i>
+                                                        </a>
                                                         <a href="{{ url('admin/class/edit/'.$classe->id) }}">
                                                             <i class="fa fa-edit text-success"></i>
                                                         </a>

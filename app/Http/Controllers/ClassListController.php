@@ -1,33 +1,35 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\ClassModel;
 use App\Models\User;
 use App\Models\Batch;
+use App\Models\ClassList;
 
 use Illuminate\Http\Request;
 
-class ClassController extends Controller
+class ClassListController extends Controller
 {
     // Show all classes
     public function index()
     {
         
         $data['page'] = 'All Class Rooms';
-        $data['classes'] = ClassModel::with(['teacher','batches'])->withTrashed()->latest()->paginate(10);
-        return view('admin.classroom.index')->with($data);
+        $data['classes'] = ClassList::latest()->paginate(10);
+        $data['class_room_id'] = request()->route('id');
+        return view('admin.classlist.index')->with($data);
     }
 
     // Add new class view
-    public function add()
+    public function add($id)
     {
         $data['page'] = 'Add Class';
         //$data['teachers'] = User::where('role','teacher')->get();
+        $data['class_room_id']=$id;
         $data['batches'] = Batch::whereNull('deleted_at')
         ->where('is_active', 1)
         ->get();
-        return view('admin.classroom.add')->with($data);
+        return view('admin.classlist.add')->with($data);
     }
 
     // Edit class view
@@ -35,7 +37,7 @@ class ClassController extends Controller
 {
     $data['page'] = 'Edit Class';
 
-    $data['class'] = ClassModel::where('id', $id)->first();
+    $data['class'] = ClassList::where('id', $id)->first();
 
     if ($data['class'] == null) {
         return redirect()->back()->with('error', 'Class not found');
@@ -43,7 +45,7 @@ class ClassController extends Controller
 
     $data['batches'] = Batch::all();
 
-    return view('admin.classroom.edit')->with($data);
+    return view('admin.classlist.edit')->with($data);
 }
 
 
@@ -63,21 +65,21 @@ class ClassController extends Controller
 
         $data = $request->all();
         $data['batches'] = json_encode($request->batches);
-        $batch = ClassModel::create($data);
+        $batch = ClassList::create($data);
         return redirect('admin/class/all')->with('success','Class added successfully');
     }
 
     // Show single class
     public function show($id)
     {
-        $class = ClassModel::withTrashed()->findOrFail($id);
+        $class = ClassList::withTrashed()->findOrFail($id);
         return view('admin.classroom.show', compact('class'));
     }
 
     // Update class
     public function update(Request $request, $id)
     {
-        $class = ClassModel::withTrashed()->findOrFail($id);
+        $class = ClassList::withTrashed()->findOrFail($id);
         $class->update($request->only([
             'title','time','teacher_id','start_date',
             'description','meta_key','meta_description','is_active'
@@ -96,7 +98,7 @@ class ClassController extends Controller
         
 
 
-        $class = ClassModel::withTrashed()->findOrFail($id)->forceDelete();;
+        $class = ClassList::withTrashed()->findOrFail($id)->forceDelete();;
 
        
         return redirect()->back()->with('error','Class deleted successfully');
@@ -107,7 +109,7 @@ class ClassController extends Controller
         
 
 
-        $class = ClassModel::withTrashed()->findOrFail($id);
+        $class = ClassList::withTrashed()->findOrFail($id);
 
         if ($class->trashed()) {
             return redirect('admin/class/all')->with('error','Class deleted successfully');
@@ -121,7 +123,7 @@ class ClassController extends Controller
     // Restore
     public function restore($id)
     {
-        $class = ClassModel::withTrashed()->findOrFail($id);
+        $class = ClassList::withTrashed()->findOrFail($id);
         $class->restore();
         return redirect('admin/class/all')->with('success','Class restored successfully');
     }
@@ -129,7 +131,7 @@ class ClassController extends Controller
     // Activate / Deactivate
     public function toggleActive($id)
     {
-        $class = ClassModel::withTrashed()->findOrFail($id);
+        $class = ClassList::withTrashed()->findOrFail($id);
         $class->is_active = !$class->is_active;
         $class->save();
 
