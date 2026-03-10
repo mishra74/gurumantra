@@ -175,6 +175,9 @@ Route::get('student/get-question/{id}', [HomeLiveController::class, 'getQuestion
 Route::get('admin/get-question/{id}', [SectionController::class, 'getQuestion'])->name('get.question');
 Route::get('/result/download/{id}', [HomeLiveController::class, 'downloadPdf'])
     ->name('result.download');
+    Route::get('/zoom/join/{id}', [ZoomController::class,'joinMeeting'])->name('zoom.join');
+
+Route::post('/zoom/signature',[ZoomController::class,'generateSignature'])->name('zoom.signature');
 });
 
 
@@ -238,6 +241,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('admin/classlist/restore/{id}', [ClassListController::class, 'restore'])->name('classlist.restore');  
     Route::get('admin/classlist/toggle/{id}', [ClassListController::class, 'toggleActive'])->name('classlist.toggle');
     Route::post('/create-meeting',[ZoomController::class,'store'])->name('classlist.store');
+Route::get('/zoom/callback', [ZoomController::class,'callback']);
 
     //teachers routs
     Route::get('admin/teacher/all/{id}', [TeacherController::class, 'index'])->name('teacher.all'); 

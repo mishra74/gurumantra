@@ -9,6 +9,7 @@
         "php": "^8.2",
         "barryvdh/laravel-dompdf": "^3.1",
         "ckfinder/ckfinder-laravel-package": "^5.0",
+        "firebase/php-jwt": "^7.0",
         "jorenvanhocht/laravel-share": "^4.2",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
