@@ -49,6 +49,7 @@ use App\Http\Controllers\MockTestVolumeController;
 use App\Http\Controllers\MockTestController;
  use App\Http\Controllers\HomeMockTestController;
 use App\Http\Controllers\ZoomController;
+use App\Http\Controllers\ZoomWebhookController;
 
 Route::get('/',[HomeController::class,'index'])->name('home');
 
@@ -458,4 +459,5 @@ Route::get('admin/blog/delete/permanent/{id}', [BlogController::class, 'destroy_
 Route::get('admin/blog/restore/{id}', [BlogController::class, 'restore'])->name('blog.restore');
 Route::get('admin/blog/toggle/{id}', [BlogController::class, 'toggleActive'])->name('blog.toggle');
 
+Route::post('/zoom/webhook', [ZoomWebhookController::class,'handle']);
 });

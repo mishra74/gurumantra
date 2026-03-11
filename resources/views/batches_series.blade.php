@@ -27,7 +27,7 @@
 
         <div class="d-flex gap-2">
           <button class="btn btn-sm btn-orange rounded-pill px-3">
-<a href="{{ route('zoom.join',4) }}" class="btn btn-primary">
+<a href="{{ route('zoom.join',8) }}" class="btn btn-primary">
 Join Class
 </a>          <button class="btn btn-sm btn-outline-dark rounded-pill px-3"><a href="{{route('previous.class',$class->id)}}" class="text-dark text-decoration-none">Previous Class</a></button>
         </div>

@@ -15,6 +15,7 @@ class ClassList extends Model
         'zoom_meeting_id',
         'start_url',
         'join_url',
-        'start_time'
+        'start_time',
+        'password'
     ];
 }
