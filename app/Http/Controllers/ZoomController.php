@@ -26,36 +26,52 @@ public function joinMeeting($id)
     ]);
 
 }
+public function hostMeeting($id)
+{
+
+    $class = ClassList::findOrFail($id);
+
+    return view('zoom.startmeeting',[
+        'meetingNumber'=>$class->zoom_meeting_id,
+        'password'=>$class->password,
+        'username'=>Auth::user()->name ?? 'Guest'
+    ]);
+
+}
 
 
 
 
 public function generateSignature(Request $request)
 {
-    $meetingNumber = $request->meetingNumber;
-    $role = 0; // 0 for attendee, 1 for host
 
-    $sdkKey = config('services.zoom.sdk_key');
-    $sdkSecret = config('services.zoom.sdk_secret');
+$sdkKey = config('services.zoom.sdk_key');
+$sdkSecret = config('services.zoom.sdk_secret');
 
-    $iat = time();
-    $exp = $iat + 2 * 60 * 60; // 2 hours
+$meetingNumber = $request->meetingNumber;
+$role = $request->role;
 
-    $payload = [
-        'sdkKey' => $sdkKey,
-        'mn' => $meetingNumber,
-        'role' => $role,
-        'iat' => $iat,
-        'exp' => $exp,
-        'appKey' => $sdkKey,
-        'tokenExp' => $exp
-    ];
+$iat = time();
+$exp = $iat + 7200;
 
-    $signature = JWT::encode($payload, $sdkSecret, 'HS256');
+$payload = [
 
-    return response()->json([
-        'signature' => $signature
-    ]);
+'sdkKey' => $sdkKey,
+'mn' => $meetingNumber,
+'role' => $role,
+'iat' => $iat,
+'exp' => $exp,
+'appKey' => $sdkKey,
+'tokenExp' => $exp
+
+];
+
+$signature = JWT::encode($payload,$sdkSecret,'HS256');
+
+return response()->json([
+'signature'=>$signature
+]);
+
 }
 public function store(Request $request, ZoomService $zoom)
 {

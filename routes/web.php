@@ -177,7 +177,6 @@ Route::get('admin/get-question/{id}', [SectionController::class, 'getQuestion'])
 Route::get('/result/download/{id}', [HomeLiveController::class, 'downloadPdf'])
     ->name('result.download');
     Route::get('/zoom/join/{id}', [ZoomController::class,'joinMeeting'])->name('zoom.join');
-
 Route::post('/zoom/signature',[ZoomController::class,'generateSignature'])->name('zoom.signature');
 });
 
@@ -460,4 +459,7 @@ Route::get('admin/blog/restore/{id}', [BlogController::class, 'restore'])->name(
 Route::get('admin/blog/toggle/{id}', [BlogController::class, 'toggleActive'])->name('blog.toggle');
 
 Route::post('/zoom/webhook', [ZoomWebhookController::class,'handle']);
+Route::get('/zoom/start/{id}',[ZoomController::class,'hostMeeting'])->name('zoom.start');
+Route::post('/zoom/signature',[ZoomController::class,'generateSignature'])->name('zoom.signature');
+
 });

@@ -54,7 +54,7 @@
                                                     <td>{{ $classe->updated_at->format('d-m-Y H:i') }}</td>
                                                     
                                                     <td>
-                                                        <a href="{{ $classe->start_url }}" class="btn btn-sm btn-success" target="_blank">
+                                                        <a href="{{ route('zoom.start', $classe->id) }}" class="btn btn-sm btn-success" target="_blank">
                                                             Start Class
                                                         </a>
                                                         <a href="{{ url('admin/class/edit/'.$classe->id) }}">

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Zoom Meeting</title>
+    <title>Gurumantra Live Class joining</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -13,7 +13,7 @@
 
 <body>
 
-<h2>Zoom Meeting</h2>
+<h2>Gurumantra Live Class</h2>
 
 <div id="zmmtg-root"></div>
 <div id="aria-notify-area"></div>
