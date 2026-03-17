@@ -41,8 +41,8 @@ $volumeId=session('volumeId');
                                 <a class="btn btn-primary rounded-pill mt-1 px-2" href="#">Live Test</a>
                                 @endif
                                  @if(!$OrderBatch)
-<a href="{{ route('zoom.join',$class->id) }}" class="btn btn-primary">
-Join Classes
+<a href="{{ route('zoom.join',11) }}" class="btn btn-primary">
+Join Classes now
 </a>
                                 <!-- <a class="btn btn-success rounded-pill mt-1 px-2" href="{{url('/purchase/class/'.$batche->id)}}">Join Now</a> -->
                                 <a class="btn btn-warning rounded-pill mt-1 px-2" href="{{url('/purchase/class/'.$batche->id)}}">Previous</a>

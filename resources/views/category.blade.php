@@ -50,7 +50,7 @@
 
     <!-- Magazine -->
     <div class="col-md-3 col-sm-6">
-      <a href="{{url('/student/day_type/1/{daily}')}}" class="text-decoration-none">
+      <a href="{{url('/all-magazines')}}" class="text-decoration-none">
         <div class="ca-card">
           <i class="bi bi-book"></i>
           <h6>Magazine</h6>

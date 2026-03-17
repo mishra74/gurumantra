@@ -264,7 +264,8 @@
           <div class="col-md-4 d-none d-md-block extra-test">
               <div class="test-card p-4 text-center h-100 shadow-sm border">
                   <div class="test-icon-box mb-4">
-                      <img src="{{ asset($test->thumbnail??'frontend/images/icons/test1.png') }}" alt="Test 1" class="img-fluid" />
+                      <img src="{{ asset($test->thumbnail??'frontend/images/icons/test1.png') }}" alt="Test 1"
+                          class="img-fluid" />
                   </div>
                   <h5 class=" mb-2">{{ $test->title }}</h5>
                   <button class="btn btn-outline-orange w-100 rounded-pill py-2 fw-bold">
@@ -274,8 +275,46 @@
           </div>
           @endforeach
           @endif
-          
+
       </div>
   </section>
+  <div class="modal fade" id="shareReferral" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Share Code & Earn</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <div class="social-share">
+                      <a href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}" target="_blank">
+                          <i class="fab fa-facebook-f socialSize" style="color:blue"></i>
+                      </a>
 
+                      <a href="https://twitter.com/intent/tweet?url={{ $url }}" target="_blank">
+                          <i class="fab fa-twitter socialSize" style="color:skyblue"></i>
+                      </a>
+
+                      <a href="https://www.linkedin.com/sharing/share-offsite?mini=true&url={{ $url }}" target="_blank">
+                          <i class="fab fa-linkedin-in socialSize" style="color:blue"></i>
+                      </a>
+
+
+                      <a href="https://wa.me/?text={{ $url }}" target="_blank">
+                          <i class="fab fa-whatsapp socialSize" style="color:green"></i>
+                      </a>
+
+                      <a href="https://www.reddit.com/submit?url={{ $url }}" target="_blank">
+                          <i class="fab fa-reddit socialSize" style="color:red"></i>
+                      </a>
+                  </div>
+
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
   @endsection

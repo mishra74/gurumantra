@@ -91,8 +91,9 @@
                      <li>
                         <a href="{{route('mock_test.all')}}">📒 All Mock Test</a>
                     </li>
-                    
-                  
+                    <li>
+                        <a href="{{route('admin.create_magazine')}}">📒 Create Magazine</a>
+                    </li>
                 </ul>
             </div>
         </li>

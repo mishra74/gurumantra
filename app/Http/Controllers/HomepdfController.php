@@ -9,6 +9,7 @@ use App\Models\CreatePDFNotesModel;
 use Auth;
 use App\Models\Coupon;
 use Carbon\Carbon;
+use App\Models\Magazine;
 
 
 class HomepdfController extends Controller
@@ -67,7 +68,35 @@ $data['volume_id']=$id;
     // If not purchased, still show notes (free preview?)
     return view('allnotes', $data);
 }
+public function all_magazines()
+{
+    // Fetch active notes
+    $data['tests'] = Magazine::where('is_active', 1)
+        ->whereNull('deleted_at')
+        ->get();
 
+    
+
+    // If not purchased, still show notes (free preview?)
+    return view('allmagazines', $data);
+}
+public function magazine_show($id){
+    $content = Magazine::find($id);
+
+    $url = urlencode(url()->current());
+    $title = urlencode($content->title);
+
+    // ✅ Best-practice: Public storage link
+    // Ensure php artisan storage:link is run
+    $thumbnail = asset('storage/' . $content->thumbnail);
+
+    // Optional fallback image
+    if(!file_exists(public_path('storage/app/public' . $content->thumbnail))){
+        $thumbnail = asset('admin_assets/assets/images/default-thumb.jpg');
+    }
+
+    return view('read_notes', compact('content', 'url', 'title', 'thumbnail'));
+}
 
 
     // public function noteshow($id){

@@ -135,7 +135,31 @@ Content
 <textarea class="form-control ckeditor"
           name="content_upload_question">{{ old('content_upload_question', $edit->content_upload_question) }}</textarea>
 </div>
+<!-- ================= ANSWER ================= -->
+<div class="col-md-12 mt-3">------ ANSWER ------</div>
 
+<div class="mb-3 col-md-12">
+<input type="radio" name="answer_type" id="inlineRadio5"
+       value="pdf"
+       {{ old('answer_type', $edit->answer_type) === 'pdf' ? 'checked' : '' }}>
+PDF File
+
+<input type="radio" name="answer_type" id="inlineRadio6"
+       value="content"
+       {{ old('answer_type', $edit->answer_type) === 'content' ? 'checked' : '' }}>
+Content
+</div>
+
+<div class="mb-3 col-md-6 pdfileAnswer" style="display:none">
+<label>PDF Upload Answer</label>
+<input type="file" class="form-control" name="pdf_upload_answer">
+</div>
+
+<div class="mb-3 col-md-6 pdfconAnswer" style="display:none">
+<label>Content Answer</label>
+<textarea class="form-control ckeditor"
+          name="content_upload_answer">{{ old('content_upload_answer', $edit->content_upload_answer) }}</textarea>
+</div>
 <!-- Meta -->
 <div class="mb-3 col-md-6">
 <label>Meta Key</label>
@@ -211,4 +235,22 @@ $(document).ready(function () {
         $(".pdfcon").show();
     }
 });
+$("#inlineRadio5").change(function () {
+    $(".pdfileAnswer").show();
+    $(".pdfconAnswer").hide();
+});
+
+$("#inlineRadio6").change(function () {
+    $(".pdfconAnswer").show();
+    $(".pdfileAnswer").hide();
+});
+
+// Load حالت (important)
+if ($("#inlineRadio5").is(":checked")) {
+    $(".pdfileAnswer").show();
+}
+
+if ($("#inlineRadio6").is(":checked")) {
+    $(".pdfconAnswer").show();
+}
 </script>

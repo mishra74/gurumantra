@@ -20,21 +20,40 @@ use Carbon\Carbon;
 
 class HomeController extends Controller
 {
-  public function index(){
+//   public function index(){
+
+//         $baseUrl = url('/referral'); 
+
+// if (Auth::check()) {
+   
+//     $referralCode = Auth::user()->referral_code ?? Auth::id();
+//     $url= $baseUrl . '/' . $referralCode;
+// } else {
+   
+//     $url = url('/');
+// }
+
+// $data['latest_tests'] = CreateModel::latest()->take(3)->get();
+// $data['url'] = urlencode($url);
+//         return view('index')->with($data);
+//     }
+    public function index(){
 
         $baseUrl = url('/referral'); 
 
 if (Auth::check()) {
    
     $referralCode = Auth::user()->referral_code ?? Auth::id();
-    $url= $baseUrl . '/' . $referralCode;
+    $url = $baseUrl . '/' . $referralCode;
 } else {
    
     $url = url('/');
 }
 
-$data['latest_tests'] = CreateModel::latest()->take(3)->get();$url = urlencode($url);
-        return view('index')->with($data);
+$data['latest_tests'] = CreateModel::latest()->take(3)->get();
+
+$url = urlencode($url);
+        return view('index',compact('url'));
     }
     public function cources(){
         $data['Courses'] = Course::where('is_active',1)->whereNull('deleted_at')->get();

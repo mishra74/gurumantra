@@ -66,9 +66,16 @@
                                         </div>
 
                                         <div class="mb-3 col-md-6">
-                                           <input type="hidden" name="class_room_id" value="{{$class_room_id}}">
+                                            <input type="hidden" name="class_room_id" value="{{$class_room_id}}">
                                         </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label">Live By</label>
 
+                                            <select name="liveBy" id="liveBy" class="form-control">
+                                                <option value="zoom">Zoom</option>
+                                                <option value="youtube">You Tube</option>
+                                            </select>
+                                        </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Is Active</label>
                                             <select class="form-control" name="is_active">
@@ -76,7 +83,11 @@
                                                 <option value="0">No</option>
                                             </select>
                                         </div>
-
+                                        <div class="mb-3 col-md-6 youtube" style="display:none">
+    <label class="form-label">Embed YouTube URL</label>
+    <input type="text" class="form-control" name="embedUrl" id="embedUrl"
+        value="{{old('embedUrl')}}">
+</div>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Create Class</button>
@@ -103,6 +114,30 @@
     <!-- ============================================================== -->
 
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
 
+        function toggleYoutubeField() {
+            let liveBy = $('#liveBy').val();
+
+            if (liveBy === 'youtube') {
+                $('.youtube').show();
+                $('#embedUrl').attr('required', true);
+            } else {
+                $('.youtube').hide();
+                $('#embedUrl').removeAttr('required');
+            }
+        }
+
+        // On change
+        $('#liveBy').on('change', function () {
+            toggleYoutubeField();
+        });
+
+        // On page load (for old values)
+        toggleYoutubeField();
+    });
+</script>
 
 @include('admin.layouts.footer')

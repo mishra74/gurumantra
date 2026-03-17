@@ -50,6 +50,7 @@ use App\Http\Controllers\MockTestController;
  use App\Http\Controllers\HomeMockTestController;
 use App\Http\Controllers\ZoomController;
 use App\Http\Controllers\ZoomWebhookController;
+use App\Http\Controllers\MagazineController;
 
 Route::get('/',[HomeController::class,'index'])->name('home');
 
@@ -123,6 +124,8 @@ Route::get('/offline-classes',function(){
     Route::get('/liveclass/{test_id}/{volume_id}',[HomeLiveClassCotronller::class,'liveclass'])->name('liveclass.show');
         Route::get('/Mocktest-volume',[HomeMockTestController::class,'mocktest_volume'])->name('mocktest.volume');
                 Route::get('/Mocktest-series/{id}',[HomeMockTestController::class,'mocktest_series'])->name('mocktest.series');
+        Route::get('/all-magazines',[HomepdfController::class,'all_magazines']);
+
 
 
 Route::middleware(['auth', StudentMiddleware::class])->group(function () {
@@ -178,6 +181,8 @@ Route::get('/result/download/{id}', [HomeLiveController::class, 'downloadPdf'])
     ->name('result.download');
     Route::get('/zoom/join/{id}', [ZoomController::class,'joinMeeting'])->name('zoom.join');
 Route::post('/zoom/signature',[ZoomController::class,'generateSignature'])->name('zoom.signature');
+                Route::get('/magazine_show/{id}',[HomepdfController::class,'magazine_show']);
+
 });
 
 
@@ -404,6 +409,19 @@ Route::get('admin/create_pdfnotes/restore/{id}', [CreatePDFNotesController::clas
 Route::get('admin/create_pdfnotes/toggle/{id}', [CreatePDFNotesController::class, 'toggleActive'])->name('create_pdfnotes.toggle');
 //Route::get('/admin/classroom/all',[CourseController::class,'index'])->name('all.classroom');
 
+//Magazine Routes
+//PDF Notes Create Routes
+Route::get('admin/create_magazine', [MagazineController::class, 'index'])->name('admin.create_magazine'); 
+Route::get('admin/create_magazine/add', [MagazineController::class, 'add'])->name('add.create_magazine'); 
+Route::post('admin/create_magazine/store', [MagazineController::class, 'store'])->name('create_magazine.store'); 
+Route::get('admin/create_magazine/delete/{id}', [MagazineController::class, 'destroy'])->name('create_magazine.delete');  
+Route::get('admin/create_magazine/edit/{id}', [MagazineController::class, 'edit'])->name('create_magazine.edit');  
+Route::put('admin/create_magazine/update/{id}', [MagazineController::class, 'update'])->name('create_magazine.update');  
+
+Route::get('admin/create_magazine/delete/permanent/{id}', [MagazineController::class, 'destroy_permanent'])->name('create_magazine.delete.permanent');  
+
+Route::get('admin/create_magazine/restore/{id}', [MagazineController::class, 'restore'])->name('create_magazine.restore');  
+Route::get('admin/create_magazine/toggle/{id}', [MagazineController::class, 'toggleActive'])->name('create_magazine.toggle');
 
 //Recording All
 Route::get('admin/recordings/all',[VideorecordingController::class, 'index'])->name('recording.all');

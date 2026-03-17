@@ -1,5 +1,4 @@
-@extends('layouts.master')
-@section('content')
+@include('layouts.header')
 <style>
 
 .social-share {
@@ -38,6 +37,7 @@
             </div>
         </div>
 
+        @include('layouts.footer')
 
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -92,4 +92,3 @@
             .catch(() => alert("Copy failed"));
     }
 </script>
-@endsection

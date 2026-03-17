@@ -16,9 +16,15 @@ class ZoomController extends Controller
 
 public function joinMeeting($id)
 {
-
+ 
     $class = ClassList::findOrFail($id);
-
+    
+if($class->live_by==="youtube"){
+ return view('youtube.join',[
+        'embedUrl'=>$class->join_url,
+        'username'=>Auth::user()->name ?? 'Guest'
+    ]);
+}
     return view('zoom.meeting',[
         'meetingNumber'=>$class->zoom_meeting_id,
         'password'=>$class->password,
@@ -89,10 +95,16 @@ $meeting = $zoom->createMeeting(
 $request->title,
 $zoomTime
 );
+if($request->liveBy == 'youtube' && $request->embedUrl){
+    $meeting['join_url'] = $request->embedUrl;
+}
 
 ClassList::create([
 
 'title'=>$request->title,
+'class_room_id'=>$request->class_room_id,
+'time'=>$request->time,
+'start_date'=>$request->start_date,
 'zoom_meeting_id'=>$meeting['id'],
 'join_url'=>$meeting['join_url'],
 'start_url'=>$meeting['start_url'],
