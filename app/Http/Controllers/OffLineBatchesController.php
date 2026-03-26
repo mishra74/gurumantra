@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Batch;
 use Illuminate\Http\Request;
 
-class BatchController extends Controller
+class OffLineBatchesController extends Controller
 {
     // Show all batches
     public function index($id)
     {
-        $data['page'] = 'All Batches';
+        $data['page'] = 'OffLine All Batches';
         session(['course_id' => $id]);
         $data['batches'] = Batch::where('course_id',$id)->withTrashed()->latest()->paginate(10);
         return view('admin.batch.index')->with($data);
@@ -18,12 +18,12 @@ class BatchController extends Controller
 
     public function add()
     {
-        $data['page'] = 'Add Batches';
+        $data['page'] = 'Add OffLine Batches';
         return view('admin.batch.add')->with($data);
     }
 public function edit($id)
     {
-        $data['page'] = 'Edi Batches';
+        $data['page'] = 'Edit OffLine Batches';
         $data['edit']=Batch::withTrashed()->findOrFail($id);
         return view('admin.batch.edit')->with($data);
     }
@@ -39,7 +39,6 @@ public function edit($id)
             'is_active' => 'boolean',
         ]);
           // Upload Thumbnail
-          $data = $request->all();
     if ($request->hasFile('thumbnail')) {
     $file = $request->file('thumbnail');
 
@@ -49,7 +48,7 @@ public function edit($id)
 
     $validated['thumbnail'] = 'frontend/uploads/batch/'.$filename;
 }
-        
+        $data = $request->all();
         $data['course_id'] = session('course_id');
         $data['thumbnail'] = $validated['thumbnail'] ?? null;
         $batch = Batch::create($data);

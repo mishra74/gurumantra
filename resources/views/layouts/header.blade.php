@@ -22,8 +22,8 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto align-items-center gap-lg-2">
             <li class="nav-item">
-              <a class="nav-link" href="{{route('offline.classes')}}">Offline Courses</a>
-            </li>
+              <a class="nav-link" href="{{route('offline.type')}}">Offline Courses</a>
+            </li>  
             <li class="nav-item">
               <a class="nav-link" href="{{ route('courses') }}">Online Courses</a>
             </li>

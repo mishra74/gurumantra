@@ -133,6 +133,7 @@ class TestCreateController extends Controller
 
         return redirect()->back()->with('error','Notes delete successfully');
     }
+    
          public function destroy_permanent($id)
 {
     CreateModel::withTrashed()->findOrFail($id)->forceDelete();

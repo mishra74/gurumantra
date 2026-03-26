@@ -56,7 +56,26 @@
 
         <li class="side-nav-title">Students</li>
 
-       
+       <li class="side-nav-item">
+            <a data-bs-toggle="collapse" href="#offline" aria-expanded="false" aria-controls="offline" class="side-nav-link">
+               
+                <span> Offline </span>
+                <span class="menu-arrow"></span>
+            </a>
+            <div class="collapse" id="offline">
+                <ul class="side-nav-second-level">
+                     <li>
+                        <a href="{{route('all.zone')}}">Zone</a>
+                    </li>
+                    <li>
+                        <a href="{{route('all.offline.batch')}}">Batch</a>
+                    </li>
+                 <li>
+                        <a href="{{route('all.offline.mocktest.volume')}}">Mock Test Volume</a>
+                 </li>
+                </ul>
+            </div>
+        </li>
 
 
         <li class="side-nav-item">
@@ -74,6 +93,7 @@
                 </ul>
             </div>
         </li>
+
 
 
 

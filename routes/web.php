@@ -43,6 +43,7 @@ use App\Http\Controllers\HomeLiveController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CenterController;
 use App\Http\Controllers\ClassListController;
 use App\Http\Controllers\HomeBlogController;
 use App\Http\Controllers\MockTestVolumeController;
@@ -51,6 +52,11 @@ use App\Http\Controllers\MockTestController;
 use App\Http\Controllers\ZoomController;
 use App\Http\Controllers\ZoomWebhookController;
 use App\Http\Controllers\MagazineController;
+use App\Http\Controllers\OffLineBatchescontroller;
+use App\Http\Controllers\OffLineHomeController;
+use App\Http\Controllers\OffLineMockTestControllor;
+use App\Http\Controllers\OffLineMockTestVolumeControllor;
+use App\Http\Controllers\ZoneController;
 
 Route::get('/',[HomeController::class,'index'])->name('home');
 
@@ -122,10 +128,18 @@ Route::get('/offline-classes',function(){
     Route::get('/notes_valume/{id}',[HomepdfController::class,'note_valume'])->name('notes.valume');
     Route::get('/noteshow/{id}',[HomepdfController::class,'noteshow'])->name('notes.show');
     Route::get('/liveclass/{test_id}/{volume_id}',[HomeLiveClassCotronller::class,'liveclass'])->name('liveclass.show');
-        Route::get('/Mocktest-volume',[HomeMockTestController::class,'mocktest_volume'])->name('mocktest.volume');
-                Route::get('/Mocktest-series/{id}',[HomeMockTestController::class,'mocktest_series'])->name('mocktest.series');
-        Route::get('/all-magazines',[HomepdfController::class,'all_magazines']);
+    Route::get('/Mocktest-volume',[HomeMockTestController::class,'mocktest_volume'])->name('mocktest.volume');
+    Route::get('/Mocktest-series/{id}',[HomeMockTestController::class,'mocktest_series'])->name('mocktest.series');
+    Route::get('/all-magazines',[HomepdfController::class,'all_magazines']);
+//OffLine Home Controller 
+Route::get('/mocktest/zone/center',[OffLineHomeController::class,'zone'])->name('mocktest.zone');
+Route::get('/batch/zone/center',[OffLineHomeController::class,'batch_zone'])->name('batches.zone');
 
+Route::get('/Offline/type',[OffLineHomeController::class,'offline_type'])->name('offline.type');
+Route::get('/offline/mocktest/volume/{id}',[OffLineHomeController::class,'mocktest_volume'])->name('offline.mocktest.volume');
+Route::get('/offline/mocktest/{id}',[OffLineHomeController::class,'offline_mocktest'])->name('offline.mocktest');
+
+Route::get('/centers/{id}',[OffLineMockTestVolumeControllor::class,'centers']);
 
 
 Route::middleware(['auth', StudentMiddleware::class])->group(function () {
@@ -182,7 +196,7 @@ Route::get('/result/download/{id}', [HomeLiveController::class, 'downloadPdf'])
     Route::get('/zoom/join/{id}', [ZoomController::class,'joinMeeting'])->name('zoom.join');
 Route::post('/zoom/signature',[ZoomController::class,'generateSignature'])->name('zoom.signature');
                 Route::get('/magazine_show/{id}',[HomepdfController::class,'magazine_show']);
-
+Route::get('/purchase/offline/{id}',[OffLineHomeController::class,'checkout'])->name('purchase.offline');
 });
 
 
@@ -222,8 +236,59 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 
     Route::get('admin/batch/restore/{id}', [BatchController::class, 'restore'])->name('batch.restore');  
     Route::get('admin/batch/toggle/{id}', [BatchController::class, 'toggleActive'])->name('batch.toggle');
+//offline
+//batch
+    Route::get('admin/offline/batch/all', [OffLineBatchescontroller::class, 'index'])->name('all.offline.batch');     
+    Route::get('admin/offline/batch/add', [OffLineBatchescontroller::class, 'add'])->name('add.offline.batch');     
+    Route::get('admin/offline/batch/edit/{id}', [OffLineBatchescontroller::class, 'edit'])->name('edit.offline.batch'); 
+    Route::post('admin/offline/batch/store', [OffLineBatchescontroller::class, 'store'])->name('batch.offline.store'); 
+    Route::post('admin/offline/batch/store', [OffLineBatchescontroller::class, 'store'])->name('batch.offline.store'); 
+    Route::put('admin/offline/batch/update/{id}', [OffLineBatchescontroller::class, 'update'])->name('batch.offline.update'); 
+    Route::get('admin/offline/batch/delete/{id}', [OffLineBatchescontroller::class, 'destroy'])->name('batch.offline.delete');  
+    Route::get('admin/offline/batch/delete/permanent/{id}', [OffLineBatchescontroller::class, 'destroy_permanent'])->name('batch.offline.delete.permanent');  
+    Route::get('admin/offline/batch/restore/{id}', [OffLineBatchescontroller::class, 'restore'])->name('batch.offline.restore');  
+    Route::get('admin/offline/batch/toggle/{id}', [OffLineBatchescontroller::class, 'toggleActive'])->name('batch.offline.toggle');
+//off line mocktest Volume
+    Route::get('admin/offline/mocktest/volume/all', [OffLineMockTestVolumeControllor::class, 'index'])->name('all.offline.mocktest.volume');
+    Route::get('admin/offline/mocktest/volume/add', [OffLineMockTestVolumeControllor::class, 'add'])->name('add.offline.mocktest.volume');
+    Route::get('admin/offline/mocktest/volume/edit/{id}', [OffLineMockTestVolumeControllor::class, 'edit'])->name('edit.offline.mocktest.volume'); 
+    Route::post('admin/offline/mocktest/volume/store', [OffLineMockTestVolumeControllor::class, 'store'])->name('mocktest.offline.store.volume'); 
+    Route::put('admin/offline/mocktest/volume/update/{id}', [OffLineMockTestVolumeControllor::class, 'update'])->name('mocktest.offline.update.volume'); 
+    Route::get('admin/offline/mocktest/volume/delete/{id}', [OffLineMockTestVolumeControllor::class, 'destroy'])->name('mocktest.offline.delete.volume');  
+    Route::get('admin/offline/mocktest/volume/delete/permanent/{id}', [OffLineMockTestVolumeControllor::class, 'destroy_permanent'])->name('mocktest.offline.delete.permanent.volume');  
+    Route::get('admin/offline/mocktest/volume/restore/{id}', [OffLineMockTestVolumeControllor::class, 'restore'])->name('mocktest.offline.restore.volume');  
+    Route::get('admin/offline/mocktest/volume/toggle/{id}', [OffLineMockTestVolumeControllor::class, 'toggleActive'])->name('mocktest.offline.toggle.volume');
+    
+    //off line mocktest
+    Route::get('admin/offline/mocktest/all', [OffLineMockTestControllor::class, 'index'])->name('all.offline.mocktest');
+    Route::get('admin/offline/mocktest/add', [OffLineMockTestControllor::class, 'add'])->name('add.offline.mocktest');
+    Route::get('admin/offline/mocktest/edit/{id}', [OffLineMockTestControllor::class, 'edit'])->name('edit.offline.mocktest'); 
+    Route::post('admin/offline/mocktest/store', [OffLineMockTestControllor::class, 'store'])->name('mocktest.offline.store'); 
+    Route::post('admin/offline/mocktest/store', [OffLineMockTestControllor::class, 'store'])->name('mocktest.offline.store'); 
+    Route::put('admin/offline/mocktest/update/{id}', [OffLineMockTestControllor::class, 'update'])->name('mocktest.offline.update'); 
+    Route::get('admin/offline/mocktest/delete/{id}', [OffLineMockTestControllor::class, 'destroy'])->name('mocktest.offline.delete');  
+    Route::get('admin/offline/mocktest/delete/permanent/{id}', [OffLineMockTestControllor::class, 'destroy_permanent'])->name('mocktest.offline.delete.permanent');  
+    Route::get('admin/offline/mocktest/restore/{id}', [OffLineMockTestControllor::class, 'restore'])->name('mocktest.offline.restore');  
+    Route::get('admin/offline/mocktest/toggle/{id}', [OffLineMockTestControllor::class, 'toggleActive'])->name('mocktest.offline.toggle');
 
-
+//zone
+Route::get('admin/zone/all', [ZoneController::class, 'index'])->name('all.zone');
+Route::get('admin/zone/add', [ZoneController::class, 'add'])->name('add.zone');
+    Route::get('admin/zone/edit/{id}', [ZoneController::class, 'edit'])->name('edit.zone'); 
+    Route::post('admin/zone/store', [ZoneController::class, 'store'])->name('zone.store'); 
+    Route::post('admin/zone/store', [ZoneController::class, 'store'])->name('zone.store'); 
+    Route::put('admin/zone/update/{id}', [ZoneController::class, 'update'])->name('zone.update'); 
+    Route::get('admin/zone/delete/{id}', [ZoneController::class, 'destroy'])->name('zone.delete');  
+    Route::get('admin/zone/toggle/{id}', [ZoneController::class, 'toggleActive'])->name('zone.toggle');
+//zone
+Route::get('admin/center/all/{id}', [CenterController::class, 'index'])->name('all.center');
+Route::get('admin/center/add/{id}', [CenterController::class, 'add'])->name('add.center');
+    Route::get('admin/center/edit/{id}', [CenterController::class, 'edit'])->name('edit.center'); 
+    Route::post('admin/center/store', [CenterController::class, 'store'])->name('center.store'); 
+    Route::post('admin/center/store', [CenterController::class, 'store'])->name('center.store'); 
+    Route::put('admin/center/update/{id}', [CenterController::class, 'update'])->name('center.update'); 
+    Route::get('admin/center/delete/{id}', [CenterController::class, 'destroy'])->name('center.delete');  
+    Route::get('admin/center/toggle/{id}', [CenterController::class, 'toggleActive'])->name('center.toggle');
 
     //class room routs
     Route::get('admin/class/all', [ClassController::class, 'index'])->name('class.all'); 
