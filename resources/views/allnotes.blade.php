@@ -33,7 +33,7 @@
             Read
         </a>
         @else
-        <a href="#" class="btn btn-dark rounded-pill px-4 disabled"> Read </a>  
+        <a href="{{url('/noteshow/'.$cont->id)}}" class="btn btn-dark rounded-pill px-4 "> Read </a>  
     @endif
     </div>
     @else

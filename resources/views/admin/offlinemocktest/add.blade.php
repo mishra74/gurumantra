@@ -76,14 +76,14 @@
             @enderror
         </div>
 
-                                                <div class="mb-3 col-md-6 liveclass" style="display:none">
+                                                <div class="mb-3 col-md-6 liveclass" style="display:block">
                                                     <label for="inputPassword4" class="form-label">Start Date</label>
                                                     <input type="date" class="form-control requiredfield" name="start_date" value="{{old('start_date')}}" placeholder="Meta Key">
                                                     @error('start_date') <small class="text-danger">{{ $message }}</small> @enderror
 
                                                 </div>
                                                 
-                                                <div class="mb-3 col-md-6 liveclass" style="display:none">
+                                                <div class="mb-3 col-md-6 liveclass" style="display:block">
                                                     <label for="inputPassword4" class="form-label">Start Time</label>
                                                     <input type="time" class="form-control requiredfield" name="start_time" value="{{old('start_time')}}" placeholder="Meta Key">
                                                     @error('start_time') <small class="text-danger">{{ $message }}</small> @enderror
@@ -91,7 +91,7 @@
                                                 </div>
 
 
-                                                <div class="mb-3 col-md-6 liveclass" style="display:none">
+                                                <div class="mb-3 col-md-6 liveclass" style="display:block">
                                                     <label for="inputPassword4" class="form-label">Time Period (In Minuts)</label>
                                                     <input type="text" class="form-control requiredfield" name="time_period" value="{{old('time_period')}}" placeholder="Time Period">
                                                     @error('time_period') <small class="text-danger">{{ $message }}</small> @enderror
@@ -99,7 +99,7 @@
                                                 </div>
 
 
-                                                <div class="mb-3 col-md-6 liveclass" style="display:none">
+                                                <div class="mb-3 col-md-6 liveclass" style="display:block">
                                                     <label for="inputPassword4" class="form-label">Live Test Expire  Date Time</label>
 <input type="datetime-local" 
        class="form-control requiredfield" 
@@ -270,14 +270,7 @@
         @include('admin.layouts.footer')
         <script>
 $("#extend").on('change',function(){
-    console.log($(this).val())
-    if($(this).val() === 'custom'){
-$(".custom").show();
-$(".fixed").hide();
-    }else{
-        $(".custom").hide();
-        $(".fixed").show();
-    }
+   
 })
 
 $("#inlineRadio2").on('click',function(){

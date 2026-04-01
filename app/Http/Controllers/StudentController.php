@@ -9,7 +9,7 @@ class StudentController extends Controller
 {
     public function index(){
         $data['page'] = 'All Student';
-        $data['student'] = User::where('type','student')->select('*')->get();
+        $data['student'] = User::where('type','student')->select('*')->latest()->paginate(10);
         return view('admin.student.index')->with($data);
     }
     

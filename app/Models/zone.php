@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
         
-class zone extends Model
+class Zone extends Model
 { 
         use SoftDeletes;
     protected $fillable = ['title','is_active','thumbnail'];

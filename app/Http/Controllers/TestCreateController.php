@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CreateModel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class TestCreateController extends Controller
 {
@@ -35,12 +37,12 @@ class TestCreateController extends Controller
 
     public function store(Request $request){
         $data = $request->all();
-        if ($request->hasFile('pdf_upload_question')) {
-            $data['pdf_file_question'] = $request->file('pdf_upload_question')->store('dailycurrent/pdfs', 'public');
+        if ($request->hasFile('pdf_file_question')) {
+            $data['pdf_file_question'] = $request->file('pdf_file_question')->store('dailycurrent/pdfs', 'public');
         }
         
-        if ($request->hasFile('pdf_upload_answer')) {
-            $data['pdf_file_answer'] = $request->file('pdf_upload_answer')->store('dailycurrent/pdfs', 'public');
+        if ($request->hasFile('pdf_file_answer')) {
+            $data['pdf_file_answer'] = $request->file('pdf_file_answer')->store('dailycurrent/pdfs', 'public');
         }
 
       if($request->live_class == 'yes'){
@@ -50,8 +52,8 @@ class TestCreateController extends Controller
       }
 
         $data['volume_id'] = session('test_volume');
-        $data['pdf_enter_question'] = $request->content_upload_question;
-        $data['pdf_enter_answer'] = $request->content_upload_answer;
+        $data['pdf_enter_question'] = $request->pdf_enter_question;
+        $data['pdf_enter_answer'] = $request->pdf_enter_answer;
           // Upload Thumbnail
     if ($request->hasFile('thumbnail')) {
     $file = $request->file('thumbnail');
@@ -74,34 +76,28 @@ class TestCreateController extends Controller
     $data = $request->except([
         '_token',
         '_method',
-        'pdf_upload_question',
-        'pdf_upload_answer'
     ]);
 
     /* ---------------- PDF QUESTION ---------------- */
-    if ($request->hasFile('pdf_upload_question')) {
+    if ($request->hasFile('pdf_file_question')) {
         $data['pdf_file_question'] =
-            $request->file('pdf_upload_question')
+            $request->file('pdf_file_question')
                     ->store('dailycurrent/pdfs', 'public');
-    } else {
-        $data['pdf_file_question'] = $test->pdf_file_question;
-    }
+    } 
 
     /* ---------------- PDF ANSWER ---------------- */
-    if ($request->hasFile('pdf_upload_answer')) {
+    if ($request->hasFile('pdf_file_answer')) {
         $data['pdf_file_answer'] =
-            $request->file('pdf_upload_answer')
+            $request->file('pdf_file_answer')
                     ->store('dailycurrent/pdfs', 'public');
-    } else {
-        $data['pdf_file_answer'] = $test->pdf_file_answer;
-    }
+    } 
 
     /* ---------------- LIVE CLASS ---------------- */
     $data['live_class'] = $request->live_class === 'yes' ? 1 : 0;
 
     /* ---------------- CONTENT ---------------- */
-    $data['pdf_enter_question'] = $request->content_upload_question;
-    $data['pdf_enter_answer']   = $request->content_upload_answer;
+    $data['pdf_enter_question'] = $request->pdf_enter_question;
+    $data['pdf_enter_answer']   = $request->pdf_enter_answer;
 
     /* ---------------- UPDATE ---------------- */
       // Upload Thumbnail
@@ -158,6 +154,23 @@ class TestCreateController extends Controller
 
         return redirect()->back()->with('success','Test update successfully');
     }
+    public function qpdf($id){
+$data = CreateModel::findOrFail($id);
+
+
+    $pdf = Pdf::loadView('admin.qpdf', compact('data'));
+
+    return $pdf->download('Test_content_'.'.pdf');
+    }
+    public function apdf($id){
+$data = CreateModel::findOrFail($id);
+
+
+    $pdf = Pdf::loadView('admin.apdf', compact('data'));
+
+    return $pdf->download('Test_content_'.'.pdf');
+    }
+    
 
 
 

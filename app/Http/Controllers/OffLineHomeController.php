@@ -45,12 +45,20 @@ if($type === 'batch'){
         return view('Offline_batch')->with($data);
 }
    
-    // Get classes where batch id exists in JSON column
-    $data['MockTestVolumes'] = OffLineMockTestVolume::where('is_active', 1)
-        ->whereNull('deleted_at')
-        ->whereJsonContains('center_id', (string) $id)
-        ->get();
 
+$centerId = $id;
+
+$data['MockTestVolumes'] = OffLineMockTestVolume::with([
+    'centerPrices' => function($q) use ($centerId) {
+        $q->where('center_id', $centerId);
+    }
+])
+->where('is_active', 1)
+->whereNull('deleted_at')
+->whereHas('centerPrices', function($q) use ($centerId) {
+    $q->where('center_id', $centerId);
+})
+->get();
     $data['center'] = Center::findOrFail($id);
 
         return view('offline_mocktest_volume')->with($data);
@@ -73,8 +81,28 @@ if(!$data['OrderBatch']){
         return view('offline_mocktest')->with($data);
     }
 
-    public function checkout($id){
-        $data['checkout'] = OffLineMockTestVolume::findOrFail($id);
-         return view('offlinecheckout')->with($data);
+   public function checkout($id)
+{
+    $centerId = session('volumeId'); // 👈 तुमने पहले save किया है
+
+    $checkout = OffLineMockTestVolume::with(['centerPrices' => function($q) use ($centerId) {
+        $q->where('mock_test_volume_id', $centerId);
+    }])->findOrFail($id);
+
+    // 👇 selected center price निकालो
+    $centerPrice = $checkout->centerPrices->first();
+
+    if (!$centerPrice) {
+        return back()->with('error', 'Center price not found');
+    }
+
+    // 👇 override main price
+    $checkout->mrp = $centerPrice->mrp;
+    $checkout->price = $centerPrice->price;
+    $checkout->total_seat = $centerPrice->total_seat;
+
+    $data['checkout'] = $checkout;
+
+    return view('offlinecheckout')->with($data);
 }
 }

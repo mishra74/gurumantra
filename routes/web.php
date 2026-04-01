@@ -45,6 +45,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CenterController;
 use App\Http\Controllers\ClassListController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeBlogController;
 use App\Http\Controllers\MockTestVolumeController;
 use App\Http\Controllers\MockTestController;
@@ -52,6 +53,7 @@ use App\Http\Controllers\MockTestController;
 use App\Http\Controllers\ZoomController;
 use App\Http\Controllers\ZoomWebhookController;
 use App\Http\Controllers\MagazineController;
+use App\Http\Controllers\ManualAddController;
 use App\Http\Controllers\OffLineBatchescontroller;
 use App\Http\Controllers\OffLineHomeController;
 use App\Http\Controllers\OffLineMockTestControllor;
@@ -217,7 +219,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('admin/courses/edit/{id}', [Coursecontroller::class, 'edit'])->name('courses.edit');
     Route::put('admin/courses/update/{id}', [Coursecontroller::class, 'update'])->name('courses.update');
     
-    // Extra Routes
+    // Extra Routes980
     Route::get('admin/courses/delete/{id}', [Coursecontroller::class, 'destroy'])->name('courses.delete');
     Route::get('admin/courses/delete/permanent/{id}', [Coursecontroller::class, 'destroy_permanent'])->name('courses.delete.permanent'); 
     Route::get('admin/courses/restore/{id}', [Coursecontroller::class, 'restore'])->name('courses.restore');  
@@ -260,7 +262,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('admin/offline/mocktest/volume/toggle/{id}', [OffLineMockTestVolumeControllor::class, 'toggleActive'])->name('mocktest.offline.toggle.volume');
     
     //off line mocktest
-    Route::get('admin/offline/mocktest/all', [OffLineMockTestControllor::class, 'index'])->name('all.offline.mocktest');
+    Route::get('admin/offline/mocktest/all/{id}', [OffLineMockTestControllor::class, 'index'])->name('all.offline.mocktest');
     Route::get('admin/offline/mocktest/add', [OffLineMockTestControllor::class, 'add'])->name('add.offline.mocktest');
     Route::get('admin/offline/mocktest/edit/{id}', [OffLineMockTestControllor::class, 'edit'])->name('edit.offline.mocktest'); 
     Route::post('admin/offline/mocktest/store', [OffLineMockTestControllor::class, 'store'])->name('mocktest.offline.store'); 
@@ -346,6 +348,9 @@ Route::put('admin/test_creates/edit/{id}', [TestCreateController::class, 'update
 Route::get('admin/test_creates/delete/{id}', [TestCreateController::class, 'destroy'])->name('createst.delete');  
 Route::get('admin/test_creates/restore/{id}', [TestCreateController::class, 'restore'])->name('createst.restore');  
 Route::get('admin/test_creates/toggle/{id}', [TestCreateController::class, 'toggleActive'])->name('createst.toggle');
+Route::get('admin/test_creates/content/q/pdf/{id}',[TestCreateController::class,'qpdf'])->name('notes.content.pdf.a');
+Route::get('admin/test_creates/content/a/pdf/{id}',[TestCreateController::class,'apdf'])->name('notes.content.pdf.q');
+
 //mock test
 //test volume routs
     Route::get('admin/mock_test/all', [MockTestVolumeController::class, 'index'])->name('mock_test.all'); 
@@ -370,7 +375,7 @@ Route::put('admin/mock_test_creates/edit/{id}', [MockTestController::class, 'upd
 Route::get('admin/mock_test_creates/delete/{id}', [MockTestController::class, 'destroy'])->name('createmock.delete');  
 Route::get('admin/mock_test_creates/restore/{id}', [MockTestController::class, 'restore'])->name('createmock.restore');  
 Route::get('admin/mock_test_creates/toggle/{id}', [MockTestController::class, 'toggleActive'])->name('createmock.toggle');
-    
+
 //craete questions
 Route::get('admin/questions/all', [QuestionsController::class, 'index'])->name('questions.all'); 
 Route::get('admin/questions/add', [QuestionsController::class, 'add'])->name('add.questions'); 
@@ -457,7 +462,7 @@ Route::get('admin/coupon/delete/{id}', [CouponController::class, 'destroy'])->na
 Route::get('admin/coupon/delete/permanent/{id}', [CouponController::class, 'destroy_permanent'])->name('coupon.delete.permanent');  
 Route::get('admin/coupon/restore/{id}', [CouponController::class, 'restore'])->name('coupon.restore');  
 Route::get('admin/coupon/toggle/{id}', [CouponController::class, 'toggleActive'])->name('coupon.toggle');
-
+//convert pdf route
 
 
 //PDF Notes Create Routes
@@ -540,9 +545,20 @@ Route::get('admin/blog/delete/{id}', [BlogController::class, 'destroy'])->name('
 Route::get('admin/blog/delete/permanent/{id}', [BlogController::class, 'destroy_permanent'])->name('blog.delete.permanent');
 Route::get('admin/blog/restore/{id}', [BlogController::class, 'restore'])->name('blog.restore');
 Route::get('admin/blog/toggle/{id}', [BlogController::class, 'toggleActive'])->name('blog.toggle');
+Route::get('admin/payment/history/{student_id}',[HistoryController::class,'payment'])->name('admin.payment.history');
+Route::get('admin/coin/history/{student_id}',[HistoryController::class,'coin'])->name('admin.coin.history');
+Route::get('admin/coupon/history/{student_id}',[HistoryController::class,'coupon'])->name('admin.coupon.history');
+//manual add
+Route::get('admin/manual/add/{student_id}',[ManualAddController::class,'course'])->name('admin.maual.course');
+Route::get('admin/cources_type/{id}',[ManualAddController::class,'category'])->name('admin.maual.category');
+Route::get('admin/batches/series',[ManualAddController::class,'batch'])->name('admin.batches.series');
+Route::get('admin/test/series',[ManualAddController::class,'test'])->name('admin.test.series');
+Route::get('admin/notes/series',[ManualAddController::class,'notes'])->name('admin.notes.series');
+Route::get('admin/recode/series',[ManualAddController::class,'record'])->name('admin.recode.series');
+Route::get('admin/manual/chackout/{id}',[ManualAddController::class,'checkout'])->name('admin.manual.checkout');
+Route::post('admin/manual/create/order',[ManualAddController::class,'create_order'])->name('manual.create.order');
 
 Route::post('/zoom/webhook', [ZoomWebhookController::class,'handle']);
 Route::get('/zoom/start/{id}',[ZoomController::class,'hostMeeting'])->name('zoom.start');
 Route::post('/zoom/signature',[ZoomController::class,'generateSignature'])->name('zoom.signature');
-
 });

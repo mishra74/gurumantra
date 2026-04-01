@@ -25,7 +25,6 @@
 
 <form method="POST" action="{{ route('mocktest.offline.store.volume') }}" enctype="multipart/form-data">
 @csrf
-
 <div class="row">
 
     <!-- Title -->
@@ -40,20 +39,61 @@
         <input type="file" name="thumbnail" class="form-control">
     </div>
 
-    <!-- Centers -->
-    <div class="col-md-6 mb-3">
-        <label>Centers</label>
-        <select name="center_ids[]" class="form-control select2" multiple>
-                        @foreach($centers as $center)
-                            <option value="{{ $center->id }}">
-                            
-                                {{ $center->title }}
-                            </option>
-                        @endforeach
+  <div class="col-md-12 mb-3">
+    <label><b>Centers + Pricing</b></label>
 
+    <table class="table table-bordered" id="centerTable">
+        <thead>
+            <tr>
+                <th>Zone</th>
+                <th>Center</th>
+                <th>MRP</th>
+                <th>Price</th>
+                <th>Total Seat</th>
+                <th width="80">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+    <!-- ZONE -->
+    <td>
+        <select name="zone_ids[]" class="form-control zone-select" required>
+            <option value="">Select Zone</option>
+            @foreach($zones as $zone)
+                <option value="{{ $zone->id }}">{{ $zone->title }}</option>
+            @endforeach
         </select>
-    </div>
+    </td>
 
+    <!-- CENTER -->
+    <td>
+        <select name="center_ids[]" class="form-control center-select" required>
+            <option value="">Select Center</option>
+        </select>
+    </td>
+
+    <!-- MRP -->
+    <td>
+        <input type="number" name="mrp[]" class="form-control" required>
+    </td>
+
+    <!-- PRICE -->
+    <td>
+        <input type="number" name="price[]" class="form-control" required>
+    </td>
+ <td>
+                <input type="number" name="total_seat[]" class="form-control" required>
+            </td>
+    <!-- ACTION -->
+    <td>
+        <button type="button" class="btn btn-success addRow">+</button>
+    </td>
+</tr>
+
+        </tbody>
+    </table>
+</div>
     <!-- CBT -->
     <div class="col-md-6 mb-3">
         <label>CBT</label><br>
@@ -80,19 +120,9 @@
         <textarea class="form-control ckeditor" name="description">{{ old('description') }}</textarea>
     </div>
 
-    <!-- Pricing -->
+   
     <div class="col-md-4 mb-3">
-        <label>MRP</label>
-        <input type="number" name="mrp" class="form-control" value="{{ old('mrp') }}">
-    </div>
-
-    <div class="col-md-4 mb-3">
-        <label>Price</label>
-        <input type="number" name="price" class="form-control" value="{{ old('price') }}">
-    </div>
-
-    <div class="col-md-4 mb-3">
-        <label>Discount</label>
+        <label>Discount(%)</label>
         <input type="number" name="discount" class="form-control" value="{{ old('discount') }}">
     </div>
 
@@ -116,11 +146,7 @@
         </select>
     </div>
 
-    <!-- Total Tests -->
-    <div class="col-md-6 mb-3">
-        <label>Total Tests</label>
-        <input type="number" name="total_tests" class="form-control" value="{{ old('total_tests') }}">
-    </div>
+    
 
     <!-- Status -->
     <div class="col-md-6 mb-3">
@@ -147,3 +173,89 @@
 </div>
 
 @include('admin.layouts.footer')
+<script>
+$(document).ready(function(){
+
+    // ADD ROW
+    $(document).on('click', '.addRow', function(){
+
+        let row = `
+        <tr>
+            <td>
+                <select name="zone_ids[]" class="form-control zone-select" required>
+                    <option value="">Select Zone</option>
+                    @foreach($zones as $zone)
+                        <option value="{{ $zone->id }}">{{ $zone->title }}</option>
+                    @endforeach
+                </select>
+            </td>
+
+            <td>
+                <select name="center_ids[]" class="form-control center-select" required>
+                    <option value="">Select Center</option>
+                </select>
+            </td>
+
+            <td>
+                <input type="number" name="mrp[]" class="form-control" required>
+            </td>
+
+            <td>
+                <input type="number" name="price[]" class="form-control" required>
+            </td>
+            <td>
+                <input type="number" name="total_seat[]" class="form-control" required>
+            </td>
+
+            <td>
+                <button type="button" class="btn btn-danger removeRow">-</button>
+            </td>
+        </tr>
+        `;
+
+        $('#centerTable tbody').append(row);
+    });
+
+    // REMOVE ROW
+    $(document).on('click', '.removeRow', function(){
+        $(this).closest('tr').remove();
+    });
+
+    // LOAD CENTERS BASED ON ZONE
+    $(document).on('change', '.zone-select', function(){
+
+        let zoneId = $(this).val();
+        let currentRow = $(this).closest('tr');
+        let centerDropdown = currentRow.find('.center-select');
+
+        centerDropdown.html('<option value="">Loading...</option>');
+
+        if(zoneId != ''){
+            $.ajax({
+                url: '/centers/' + zoneId,
+                type: 'GET',
+                success: function(response){
+
+                    let html = '<option value="">Select Center</option>';
+
+                    if(response.centers.length > 0){
+                        response.centers.forEach(function(center){
+                            html += `<option value="${center.id}">${center.title}</option>`;
+                        });
+                    } else {
+                        html = '<option value="">No Centers Found</option>';
+                    }
+
+                    centerDropdown.html(html);
+                },
+                error: function(){
+                    centerDropdown.html('<option value="">Error loading centers</option>');
+                }
+            });
+        } else {
+            centerDropdown.html('<option value="">Select Center</option>');
+        }
+    });
+
+});
+</script>

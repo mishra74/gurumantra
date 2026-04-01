@@ -9,5 +9,10 @@ class OffLineMockTestVolume extends Model
 { 
         use SoftDeletes;
 
-    protected $fillable = ['title', 'thumbnail', 'zone_id', 'center_id', 'cbt', 'omr', 'meta_key', 'description', 'mrp', 'price', 'discount', 'start_date', 'end_date', 'payment_method', 'total_tests', 'is_active','deleted_at'];
+    protected $fillable = ['title', 'thumbnail', 'cbt', 'omr', 'meta_key', 'description',  'discount', 'start_date', 'end_date', 'payment_method','is_active','deleted_at'];
+// OffLineMockTestVolume.php
+public function centerPrices()
+{
+    return $this->hasMany(CenterPrice::class, 'mock_test_volume_id');
 }
+    }

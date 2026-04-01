@@ -31,11 +31,16 @@
     font-size: 28px;
     margin: 10px;
 }
+body {
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
     </style>
   </head>
 
    
-    <body>
+    <body oncontextmenu="return false;">
 <div id="scrollBar"></div>
   {{-- Top Header --}}
     @include('layouts.header')
@@ -55,5 +60,17 @@
     <script src="{{ asset('frontend/js/main.js') }}"></script>
 
 <script src="{{ asset('frontend/js/main.js') }}"></script>
+<script>
+  document.onkeydown = function(e) {
+    if (e.ctrlKey && 
+       (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'a')) {
+        return false;
+    }
+};
+document.addEventListener('copy', function(e) {
+    e.preventDefault();
+    alert('Copying is not allowed!');
+});
+</script>
 </body>
 </html>             

@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Center;
+use App\Models\CenterPrice;
 use App\Models\Test;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\OffLineMockTestVolume;
-use App\Models\zone;
+use App\Models\Zone;
 
 class OffLineMockTestVolumeControllor extends Controller
 {
@@ -34,85 +35,111 @@ public function centers($id)
 
     // Load zones with centers
     $data['centers'] = Center::where('is_active', 1)->get();
-
+$data['zones']=Zone::where('is_active', 1)->get();
     return view('admin.offlinemocktestvolume.add', $data);
 }
-
-    // Store new batch
-    public function store(Request $request)
-    {
-        //dd($request->all());
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'mrp' => 'nullable|string|max:255',
-            'start_date' => 'nullable|date',
-            'is_active' => 'boolean',
-        ]);
-//dd($request->all());
-        $data = $request->all();
-        $data['center_id'] = json_encode($request->center_ids ?? []); // JSON encode for multiple select
-          // Upload Thumbnail
-    if ($request->hasFile('thumbnail')) {
-    $file = $request->file('thumbnail');
-
-    $filename = time().'.'.$file->getClientOriginalExtension();
-
-    $file->move('frontend/uploads/test', $filename);
-
-    $validated['thumbnail'] = 'frontend/uploads/test/'.$filename;
-}
-        $data['thumbnail'] = $validated['thumbnail'] ?? null;
-        $batch = OffLineMockTestVolume::create($data);
-
-        return redirect('admin/offline/mocktest/volume/all')->with('success','Test add sucessfully');
-    }
-
-    // Show single batch
-    public function edit($id)
-    {
-        $data['page'] = 'Edit Test';
-        $data['data'] = OffLineMockTestVolume::withTrashed()->findOrFail($id);
-        //dd($data['test']);
-    $data['centers'] = Center::where('is_active', 1)->get();
-
- return view('admin.offlinemocktestvolume.edit')->with($data);
-    }
-
-    // Update batch
-    public function update(Request $request, $id)
-    {
-        //dd($id);
-         // Validate request
+public function store(Request $request)
+{
     $request->validate([
         'title' => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'mrp' => 'nullable|string|max:255',
-        'start_date' => 'nullable|date',
-        'is_active' => 'boolean',
     ]);
 
-    // Find record
-    
-    $test = OffLineMockTestVolume::findOrFail($id);
+    // ❗ remove array fields
+    $data = $request->except([
+        'mrp',
+        'price',
+        'zone_ids',
+        'center_ids',
+        'total_seat'
+    ]);
 
-    // Prepare data
-    $data = $request->all();
-$data['center_id'] = json_encode($request->center_ids ?? []); 
+    // Thumbnail
     if ($request->hasFile('thumbnail')) {
         $file = $request->file('thumbnail');
         $filename = time().'.'.$file->getClientOriginalExtension();
         $file->move('frontend/uploads/test', $filename);
+
         $data['thumbnail'] = 'frontend/uploads/test/'.$filename;
     }
 
-    // Update record
-    $test->update($data);
-    
+    // ❌ DO NOT ADD MRP/PRICE HERE
 
-        return redirect()->back()->with('success','Test update successfully');
+    // Save main table
+    $testvolume = OffLineMockTestVolume::create($data);
 
+    // ✅ Insert center pricing
+    if ($request->has('center_ids')) {
+
+        foreach ($request->center_ids as $key => $centerId) {
+
+            CenterPrice::create([
+                'zone_id' => $request->zone_ids[$key] ?? null,
+                'center_id' => $centerId,
+                'mock_test_volume_id' => $testvolume->id,
+                'mrp' => $request->mrp[$key] ?? 0,
+                'price' => $request->price[$key] ?? 0,
+                'total_seat' => $request->total_seat[$key] ?? 0,
+            ]);
+        }
     }
+
+    return redirect('admin/offline/mocktest/volume/all')
+        ->with('success','Test added successfully');
+}
+    // Show single batch
+    public function edit($id)
+    {
+        $data['page'] = 'Edit Test';
+        $data['data'] = OffLineMockTestVolume::with('centerPrices')->withTrashed()->findOrFail($id);
+        //dd($data['test']);
+     $data['centers'] = Center::where('is_active', 1)->get();
+$data['zones']=Zone::where('is_active', 1)->get();
+
+ return view('admin.offlinemocktestvolume.edit')->with($data);
+    }
+
+   public function update(Request $request, $id)
+{
+    $testvolume = OffLineMockTestVolume::findOrFail($id);
+
+    $data = $request->except([
+        'zone_ids',
+        'center_ids',
+        'mrp',
+        'price',
+        'total_seat'
+    ]);
+ // Thumbnail
+    if ($request->hasFile('thumbnail')) {
+        $file = $request->file('thumbnail');
+        $filename = time().'.'.$file->getClientOriginalExtension();
+        $file->move('frontend/uploads/test', $filename);
+
+        $data['thumbnail'] = 'frontend/uploads/test/'.$filename;
+    }
+    // update main
+    $testvolume->update($data);
+
+    // ❗ delete old pricing
+    CenterPrice::where('mock_test_volume_id', $id)->delete();
+
+    // insert new
+    if ($request->has('center_ids')) {
+        foreach ($request->center_ids as $key => $centerId) {
+
+            CenterPrice::create([
+                'zone_id' => $request->zone_ids[$key],
+                'center_id' => $centerId,
+                'mock_test_volume_id' => $id,
+                'mrp' => $request->mrp[$key],
+                'price' => $request->price[$key],
+                'total_seat' => $request->total_seat[$key],
+            ]);
+        }
+    }
+
+    return back()->with('success', 'Updated successfully');
+}
 
     // Soft delete
     public function destroy($id)

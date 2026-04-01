@@ -3,20 +3,17 @@
 @section('content')
 
 @php
-$mrp_price = $checkout->mrp;
-$mrp = $checkout->price;
-$discountPercent = $checkout->discount ?? 0;
-    $mrp = $checkout->price;
+    $mrp = $checkout->mrp;
+    $priceBase = $checkout->price;
     $discountPercent = $checkout->discount ?? 0;
 
-    $discountAmount = ($mrp * $discountPercent) / 100;
-    $price = $mrp - $discountAmount;
+    $discountAmount = ($priceBase * $discountPercent) / 100;
+    $finalPrice = $priceBase - $discountAmount;
 
-    if($price < 1){
-        $price = 1; // minimum ₹1 for Razorpay
+    if($finalPrice < 1){
+        $finalPrice = 1;
     }
 @endphp
-
 <div class="container py-5">
     <h2 class="text-center mb-4">Checkout</h2>
 
@@ -27,41 +24,35 @@ $discountPercent = $checkout->discount ?? 0;
                 <div class="card-body">
 
                     <h4 class="text-center mb-3">{{ $checkout->title }}</h4>
-                         <p>
-                        <b>MRP:</b> 
-                        <span style="text-decoration: line-through; color: gray;">
-                            ₹{{ $mrp_price }}
-                        </span>
-                    </p>
-                    
-                    <!-- MRP -->
-                    <p>
-                        <b>price:</b> 
-                        <span style="text-decoration: line-through; color: gray;">
-                            ₹{{ $mrp }}
-                        </span>
-                    </p>
+                        <p>
+    <b>MRP:</b> 
+    <span style="text-decoration: line-through; color: gray;">
+        ₹{{ $mrp }}
+    </span>
+</p>
 
-                    <!-- Discount -->
-                    <p>
-                        <b>Extra Discount:</b> 
-                        <span class="text-success">
-                            {{ $discountPercent }}% OFF (- ₹{{ number_format($discountAmount, 2) }})
-                        </span>
-                    </p>
+<p>
+    <b>Price:</b> 
+    <span style="text-decoration: line-through; color: gray;">
+        ₹{{ $priceBase }}
+    </span>
+</p>
 
-                    <!-- Final Price -->
-                    <p><b>NetPrice:</b> ₹{{ number_format($price, 2) }}</p>
+<p>
+    <b>Extra Discount:</b> 
+    <span class="text-success">
+        {{ $discountPercent }}% OFF (- ₹{{ number_format($discountAmount, 2) }})
+    </span>
+</p>
 
-                    <hr>
+<p><b>Net Price:</b> ₹{{ number_format($finalPrice, 2) }}</p>
 
-                    <!-- Total -->
-                    <h5>
-                        Total Payable: ₹
-                        <span id="finalText">{{ number_format($price, 2) }}</span>
-                    </h5>
+<h5>
+    Total Payable: ₹
+    <span id="finalText">{{ number_format($finalPrice, 2) }}</span>
+</h5>
 
-                    <input type="hidden" id="finalAmount" value="{{ $price }}">
+<input type="hidden" id="finalAmount" value="{{ $finalPrice }}">
 
                     <button class="btn btn-primary w-100 mt-3" id="purchase">
                         Purchase Now

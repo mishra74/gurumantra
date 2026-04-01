@@ -31,7 +31,8 @@
                                                 <th scope="col">Type</th>
                                                 <th scope="col">Is_active</th>
                                                 <th scope="col">Created_at</th>       
-                                                <th scope="col">Updated_at</th>                                                
+                                                <th scope="col">Updated_at</th>  
+                                                <th>Export</th>                                              
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
@@ -45,7 +46,7 @@
 
 
                                                 <td>
-    @if($create->live_class)
+    @if($create->deleted_at)
         <span class="badge bg-danger">Deleted</span>
     @else
         <span class="badge {{ $create->is_active==1 ? 'bg-success' : 'bg-danger' }}">
@@ -68,7 +69,15 @@
 
                                                 <td>{{$create->created_at}}</td>
                                                 <td>{{$create->updated_at}}</td>
+                                                <td><a href="{{ url('admin/test_creates/content/q/pdf/'.$create->id) }}">
+                                                        Question
+                                                        </a>
+                                                        <a href="{{ url('admin/test_creates/content/a/pdf/'.$create->id) }}">
+                                                        Answer
+                                                        </a></td>
                                                 <td>
+                                                    
+                                                    
                                                         <a href="{{ url('admin/test_creates/edit/'.$create->id) }}">
                                                             <i class="fa fa-edit text-success"></i>
                                                         </a>

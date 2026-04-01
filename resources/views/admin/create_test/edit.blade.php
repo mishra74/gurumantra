@@ -116,24 +116,25 @@
 <div class="mb-3 col-md-12">
 <input type="radio" name="question_type" id="inlineRadio3"
        value="pdf"
-       {{ old('question_type', $edit->question_type) === 'pdf' ? 'checked' : '' }}>
+       {{ old('question_type', $edit->pdf_file_question ? 'checked' : '' )}}>
 PDF File
 
 <input type="radio" name="question_type" id="inlineRadio4"
        value="content"
-       {{ old('question_type', $edit->question_type) === 'content' ? 'checked' : '' }}>
+       {{ old('question_type', $edit->pdf_enter_question ? 'checked' : '' )}}>
 Content
 </div>
 
 <div class="mb-3 col-md-6 pdfile" style="display:none">
 <label>PDF Upload Question</label>
-<input type="file" class="form-control" name="pdf_upload_question">
+<input type="file" class="form-control" name="pdf_file_question">
+{{$edit->pdf_file_question}}
 </div>
 
 <div class="mb-3 col-md-6 pdfcon" style="display:none">
 <label>Content Question</label>
 <textarea class="form-control ckeditor"
-          name="content_upload_question">{{ old('content_upload_question', $edit->content_upload_question) }}</textarea>
+          name="pdf_enter_question">{{ old('pdf_enter_question', $edit->pdf_enter_question) }}</textarea>
 </div>
 <!-- ================= ANSWER ================= -->
 <div class="col-md-12 mt-3">------ ANSWER ------</div>
@@ -141,24 +142,26 @@ Content
 <div class="mb-3 col-md-12">
 <input type="radio" name="answer_type" id="inlineRadio5"
        value="pdf"
-       {{ old('answer_type', $edit->answer_type) === 'pdf' ? 'checked' : '' }}>
+       {{ old('answer_type', $edit->pdf_file_answer ? 'checked' : '' )}}>
 PDF File
 
 <input type="radio" name="answer_type" id="inlineRadio6"
        value="content"
-       {{ old('answer_type', $edit->answer_type) === 'content' ? 'checked' : '' }}>
+       {{ old('answer_type', $edit->pdf_enter_answer ? 'checked' : '') }}>
 Content
 </div>
 
 <div class="mb-3 col-md-6 pdfileAnswer" style="display:none">
 <label>PDF Upload Answer</label>
-<input type="file" class="form-control" name="pdf_upload_answer">
+<input type="file" class="form-control" name="pdf_file_answer">
+{{$edit->pdf_file_answer}}
+
 </div>
 
 <div class="mb-3 col-md-6 pdfconAnswer" style="display:none">
 <label>Content Answer</label>
 <textarea class="form-control ckeditor"
-          name="content_upload_answer">{{ old('content_upload_answer', $edit->content_upload_answer) }}</textarea>
+          name="pdf_enter_answer">{{ old('pdf_enter_answer', $edit->pdf_enter_answer) }}</textarea>
 </div>
 <!-- Meta -->
 <div class="mb-3 col-md-6">

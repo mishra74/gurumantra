@@ -1,0 +1,115 @@
+@include('admin.layouts.header')
+@include('admin.layouts.sidebar')
+<!-- Begin page -->
+<div class="wrapper">
+    @include('admin.layouts.topbar')
+    @include('admin.layouts.sidebar')
+            <!-- ========== Left Sidebar Start ========== -->
+            
+            <!-- ========== Left Sidebar End ========== -->
+
+            <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
+
+            <div class="content-page">
+                <div class="content">
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Attex</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
+                                            <li class="breadcrumb-item active">All Bookings</li>
+                                        </ol>
+                                    </div>
+                                    <h4 class="page-title">All Payment History</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-body">
+
+
+                                        <div class="table-responsive-sm">
+                                            <table class="table table-centered mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Coupon Code</th>
+                                                        <th>Coupon Type</th>
+                                                        <th>Value</th>
+                                                        <th>Discount Amount</th>
+                                                        <th>Used Date</th>
+                                                        
+                                                    </tr>
+                                                </thead>
+                                              <tbody>
+@if(isset($data) && count($data) > 0)
+    @foreach($data as $key=>$order)  
+        <tr>
+            <td>{{ $key+1 }}</td>
+
+            <td>
+                {{ $order->test_title 
+                    ?? $order->notes_title 
+                    ?? $order->batch_title 
+                    ?? 'N/A' }}
+            </td>
+
+            <td>₹{{ number_format($order->price,2) }}</td>
+
+            <td>{{ $order->order_number }}</td>
+
+            <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d M Y') }}</td>
+            
+            <td>₹{{ number_format($order->discount_amount,2) }}</td>
+
+        </tr>
+    @endforeach
+@else
+    <tr>
+        <td colspan="5" class="text-center">No Orders Found</td>
+    </tr>
+@endif
+</tbody>
+
+                                            </table>
+                                        </div> <!-- end table-responsive-->  
+
+                                    </div> <!-- end card body-->
+                                </div> <!-- end card -->
+                            </div><!-- end col-->
+
+                          
+                        </div>
+                        <!-- end row-->
+
+                        
+                        
+                    </div> <!-- container -->
+
+                </div> <!-- content -->
+
+               
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- End Page content -->
+            <!-- ============================================================== -->
+
+        </div>
+</div>
+        <!-- END wrapper -->
+
+        @include('admin.layouts.footer')

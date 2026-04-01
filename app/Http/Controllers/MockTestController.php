@@ -64,7 +64,7 @@ class MockTestController extends Controller
     $validated['thumbnail'] = 'frontend/uploads/test/'.$filename;
 }
         MockTest::create($data);
-      return redirect('admin/mock_test/'.session('test_volume'))->with('success','Test Created Successfully');
+      return redirect('admin/offline/mocktest/all/'.session('test_volume'))->with('success','Test Created Successfully');
 
 
     }

@@ -47,7 +47,7 @@
                                             @foreach($test as $key => $tes)
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
-                                                    <td><a class="btn btn-primary" href="{{url('admin/test_create/'.$tes->id)}}"><i class="fa fa-plus"></i></a></td>
+                                                    <td><a class="btn btn-primary" href="{{url('admin/offline/mocktest/all/'.$tes->id)}}"><i class="fa fa-plus"></i></a></td>
 
 
                                                     <td>{{ $tes->title }}</td>
