@@ -49,7 +49,7 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeBlogController;
 use App\Http\Controllers\MockTestVolumeController;
 use App\Http\Controllers\MockTestController;
- use App\Http\Controllers\HomeMockTestController;
+use App\Http\Controllers\HomeMockTestController;
 use App\Http\Controllers\ZoomController;
 use App\Http\Controllers\ZoomWebhookController;
 use App\Http\Controllers\MagazineController;

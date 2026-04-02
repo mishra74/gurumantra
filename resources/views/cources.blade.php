@@ -26,7 +26,25 @@
       <div class="course-card bg-white p-3 shadow-sm h-100">
         <img src="{{$course->thumbnail??'frontend/images/course_thumb1.png'}}" class="course-thumb mb-3">
         <h6 class="fw-bold mb-1">{{$course->title}}</h6>
+
         <small class="text-muted d-block mb-3">Full syllabus batch</small>
+        <!-- Description -->
+            <div class="course-desc flex-grow-1">
+                
+                <div class="short-desc">
+                    {!! Str::limit(strip_tags($course->description), 150) !!}
+                </div>
+
+                <div class="full-desc d-none">
+                    {!! $course->description !!}
+                </div>
+
+                <a href="javascript:void(0)" 
+                   class="toggle-btn text-primary">
+                   Read More
+                </a>
+
+            </div>
         <a href="{{url('/cources_type/'.$course->id)}}" class="btn btn-orange w-100 rounded-pill fw-bold">
           Continue / जारी रखें
         </a>

@@ -72,5 +72,25 @@ document.addEventListener('copy', function(e) {
     alert('Copying is not allowed!');
 });
 </script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+$(document).ready(function () {
+
+    $('.toggle-btn').click(function () {
+
+        let parent = $(this).closest('.course-desc');
+
+        parent.find('.short-desc').toggleClass('d-none');
+        parent.find('.full-desc').toggleClass('d-none');
+
+        let currentText = $(this).text().trim();
+
+        console.log(currentText); // now shows correct text
+
+        $(this).text(currentText === 'Read More' ? 'Read Less' : 'Read More');
+    });
+
+});
+</script>
 </body>
 </html>             

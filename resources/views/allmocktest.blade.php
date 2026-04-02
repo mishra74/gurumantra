@@ -21,6 +21,23 @@
         <div class="flex-grow-1">
           <h6 class="fw-bold mb-1">{{ $test->title }}</h6>
           <small class="text-muted">{{ $test->questions_count }} Questions</small>
+          <!-- Description -->
+            <div class="course-desc flex-grow-1">
+                
+                <div class="short-desc">
+                    {!! Str::limit(strip_tags($test->description), 150) !!}
+                </div>
+
+                <div class="full-desc d-none">
+                    {!! $test->description !!}
+                </div>
+
+                <a href="javascript:void(0)" 
+                   class="toggle-btn text-primary">
+                   Read More
+                </a>
+
+            </div>
         </div>
       </div>
 @if($test->live_class===1)

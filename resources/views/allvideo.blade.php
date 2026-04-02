@@ -19,7 +19,23 @@
                             </div>
                             <div class="rounded-bottom p-4">
                                 <a href="#" class="h4 d-inline-block mb-4"> {{$test->title}}</a><br>
-                                
+                                <!-- Description -->
+            <div class="course-desc flex-grow-1">
+                
+                <div class="short-desc">
+                    {!! Str::limit(strip_tags($test->description), 150) !!}
+                </div>
+
+                <div class="full-desc d-none">
+                    {!! $test->description !!}
+                </div>
+
+                <a href="javascript:void(0)" 
+                   class="toggle-btn text-primary">
+                   Read More
+                </a>
+
+            </div>
                                  @if($hasPurchased ===false)
                                   <a class="btn btn-primary rounded-pill py-2 px-4" 
        href="{{ url('/purchase/video/'.$VideoVolumeId) }}">

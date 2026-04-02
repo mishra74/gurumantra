@@ -24,7 +24,23 @@
       <div class="flex-grow-1">
         <h6 class="fw-bold mb-1">{{$class->title}}</h6>
         <p class="small text-muted mb-2">Topic: {{$class->topic}}</p>
+<!-- Description -->
+            <div class="course-desc flex-grow-1">
+                
+                <div class="short-desc">
+                    {!! Str::limit(strip_tags($class->description), 150) !!}
+                </div>
 
+                <div class="full-desc d-none">
+                    {!! $class->description !!}
+                </div>
+
+                <a href="javascript:void(0)" 
+                   class="toggle-btn text-primary">
+                   Read More
+                </a>
+
+            </div>
         <div class="d-flex gap-2">
           <button class="btn btn-sm btn-orange rounded-pill px-3">
 <a href="{{ route('zoom.join',12) }}" class="btn btn-primary">

@@ -24,6 +24,23 @@
             <div>
                 <h6 class="fw-bold mb-0">{{$batche->title}}</h6>
             </div>
+            <!-- Description -->
+            <div class="course-desc flex-grow-1">
+                
+                <div class="short-desc">
+                    {!! Str::limit(strip_tags($batche->description), 150) !!}
+                </div>
+
+                <div class="full-desc d-none">
+                    {!! $batche->description !!}
+                </div>
+
+                <a href="javascript:void(0)" 
+                   class="toggle-btn text-primary">
+                   Read More
+                </a>
+
+            </div>
         </div>
         <a href="{{ route('batches.valume', $batche->id) }}" class="btn btn-orange btn-sm rounded-pill px-3">Continue / जारी रखें</a>
     </div>

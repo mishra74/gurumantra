@@ -24,7 +24,23 @@ $volumeId=session('volumeId');
 
                     <div class="rounded-bottom p-4">
                         <a href="#" class="h4 d-inline-block mb-4"> {{$class->title}}</a><br>
+ <!-- Description -->
+            <div class="course-desc flex-grow-1">
+                
+                <div class="short-desc">
+                    {!! Str::limit(strip_tags($class->description), 150) !!}
+                </div>
 
+                <div class="full-desc d-none">
+                    {!! $class->description !!}
+                </div>
+
+                <a href="javascript:void(0)" 
+                   class="toggle-btn text-primary">
+                   Read More
+                </a>
+
+            </div>
 
                         @if($class->live_class == 1)
                         <a class="btn btn-primary rounded-pill mt-1 px-2" href="#">Live Test</a>
@@ -58,6 +74,7 @@ $volumeId=session('volumeId');
         </div>
     </div>
 </div>
+
 
 
 <!-- Footer Start -->

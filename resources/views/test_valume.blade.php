@@ -23,8 +23,23 @@
             <img src="{{asset($test->thumbnail??'frontend/images/icons/test.png')}}" width="45" class="me-3" alt="">
             <div>
                 <h6 class="fw-bold mb-0">{{$test->title}}</h6>
-                <small class="text-muted">Total 15 Tests</small>
-            </div>
+<!-- Description -->
+            <div class="course-desc flex-grow-1">
+                
+                <div class="short-desc">
+                    {!! Str::limit(strip_tags($test->description), 150) !!}
+                </div>
+
+                <div class="full-desc d-none">
+                    {!! $test->description !!}
+                </div>
+
+                <a href="javascript:void(0)" 
+                   class="toggle-btn text-primary">
+                   Read More
+                </a>
+
+            </div>            </div>
         </div>
         <a href="{{ route('tests.valume', $test->id) }}" class="btn btn-orange btn-sm rounded-pill px-3">Continue / जारी रखें</a>
     </div>

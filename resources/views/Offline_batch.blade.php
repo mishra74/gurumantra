@@ -24,6 +24,23 @@
             <div>
                 <h6 class="fw-bold mb-0">{{$test->title}}</h6>
                 <small class="text-muted">Total 15 Tests</small>
+                <!-- Description -->
+            <div class="course-desc flex-grow-1">
+                
+                <div class="short-desc">
+                    {!! Str::limit(strip_tags($test->description), 150) !!}
+                </div>
+
+                <div class="full-desc d-none">
+                    {!! $test->description !!}
+                </div>
+
+                <a href="javascript:void(0)" 
+                   class="toggle-btn text-primary">
+                   Read More
+                </a>
+
+            </div>
             </div>
         </div>
         <a href="{{ route('offline.mocktest', $test->id) }}" class="btn btn-orange btn-sm rounded-pill px-3">Continue / जारी रखें</a>

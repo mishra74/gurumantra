@@ -12,13 +12,13 @@
     <div class="container pb-5">
         <div class="row g-4">
             
-            <div class="col-md-6 col-lg-3">
+            <!-- <div class="col-md-6 col-lg-3">
                 <div class="test-card p-3 shadow-sm bg-white text-center h-100 rounded-4">
                     <img src="{{asset('frontend/images/icons/batch.png')}}" class="img-fluid rounded-3 mb-3" style="height: 100px; object-fit: contain;" alt="Batch">
                     <h6 class="fw-bold mb-3">Batches</h6>
                     <a href="{{route('batches.zone')}}" class="btn btn-orange w-100 rounded-pill fw-bold py-2 small">Continue / जारी रखें</a>
                 </div>
-            </div>
+            </div> -->
 
             <div class="col-md-6 col-lg-3">
                 <div class="test-card p-3 shadow-sm bg-white text-center h-100 rounded-4">

@@ -26,6 +26,23 @@
                 <h6 class="fw-bold mb-0">{{$cont->title}}</h6>
                 <small class="text-muted">Part 1 – Fundamental Rights</small>
             </div>
+            <!-- Description -->
+            <div class="course-desc flex-grow-1">
+                
+                <div class="short-desc">
+                    {!! Str::limit(strip_tags($cont->description), 150) !!}
+                </div>
+
+                <div class="full-desc d-none">
+                    {!! $cont->description !!}
+                </div>
+
+                <a href="javascript:void(0)" 
+                   class="toggle-btn text-primary">
+                   Read More
+                </a>
+
+            </div>
         </div>
         @if($hasPurchased)
 @if(isset($cont->pdf_file))
