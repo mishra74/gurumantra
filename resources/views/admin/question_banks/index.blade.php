@@ -77,6 +77,7 @@
                                             
                                         </tbody>
                                     </table>
+                                    {{ $question->links() }}
                                 </div> <!-- end table-responsive -->
                             </div> <!-- end card body -->
                         </div> <!-- end card -->

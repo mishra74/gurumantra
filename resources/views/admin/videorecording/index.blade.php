@@ -92,7 +92,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    
+                                    {{ $video->links() }}
                                 </div> <!-- end table-responsive -->
 
                             </div> <!-- end card body -->

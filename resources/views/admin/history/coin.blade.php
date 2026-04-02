@@ -97,6 +97,7 @@
 </tbody>
 
                                             </table>
+                                            {{ $data->links() }}
                                         </div> <!-- end table-responsive-->  
 
                                     </div> <!-- end card body-->

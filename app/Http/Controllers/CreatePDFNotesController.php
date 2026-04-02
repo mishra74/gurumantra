@@ -9,7 +9,7 @@ class CreatePDFNotesController extends Controller
 {
     public function index($id){
         $data['page'] = 'All PDF Notes';
-        $data['create_test'] = CreatePDFNotesModel::withTrashed()->where('volume_id',$id)->latest()->get();
+        $data['create_test'] = CreatePDFNotesModel::withTrashed()->where('volume_id',$id)->latest()->paginate(10);
         session(['notes_volume' => $id]);
         return view('admin.createpdf.index')->with($data);
     }

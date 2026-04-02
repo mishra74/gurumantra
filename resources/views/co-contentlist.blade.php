@@ -20,27 +20,27 @@
       </div>
 
       <div class="row g-3">
+              @foreach($allContent as $content)
+
         <div class="col-12">
           <div class="p-4 bg-white rounded-4 shadow-sm border-start border-success border-5 d-flex flex-md-row flex-column justify-content-between align-items-md-center">
             <div class="mb-3 mb-md-0">
               <span class="badge bg-success-soft text-success mb-1">FREE CONTENT</span>
-              <h5 class="fw-bold mb-1">Daily Current Affairs - 02 Feb 2026</h5>
-              <p class="text-muted small mb-0"><i class="bi bi-file-pdf me-1"></i> PDF Document • 1.2 MB</p>
+              <h5 class="fw-bold mb-1">{{$content->title}} - {{$content->created_at}}</h5>
+              <p class="text-muted small mb-0"><i class="bi bi-file-pdf me-1"></i> PDF Document </p>
             </div>
-            <a href="images/pdf/sample.pdf" target="_blank" class="btn btn-orange px-4 py-2 rounded-pill fw-bold">OPEN PDF →</a>
-          </div>
-        </div>
+            <a href="{{asset($content->pdf)}}" target="_blank" class="btn btn-orange px-4 py-2 rounded-pill fw-bold">OPEN PDF →</a>
+@if(!empty($content->content))
+                                   
+                                                   <a href="{{url('student/read_content/'.$content->id)}}" target="_blank" class="btn btn-orange px-4 py-2 rounded-pill fw-bold">OPEN Content →</a>
 
-        <div class="col-12">
-          <div class="p-4 bg-white rounded-4 shadow-sm border-start border-orange border-5 d-flex flex-md-row flex-column justify-content-between align-items-md-center">
-            <div class="mb-3 mb-md-0">
-              <span class="badge bg-orange-soft text-orange mb-1">PREMIUM</span>
-              <h5 class="fw-bold mb-1">UPSC Monthly Magazine - January Special</h5>
-              <p class="text-muted small mb-0"><i class="bi bi-lock-fill me-1"></i> Requires Purchase</p>
-            </div>
-            <a href="payment.html" class="btn btn-dark px-4 py-2 rounded-pill fw-bold">BUY NOW / UNLOCK</a>
+                                         
+                                    
+                                @endif
           </div>
         </div>
+@endforeach
+      
       </div>
     </section>
 

@@ -96,7 +96,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    
+                                    {{ $test->links() }}
                                 </div> <!-- end table-responsive -->
 
                             </div> <!-- end card body -->

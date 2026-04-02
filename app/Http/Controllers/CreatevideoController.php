@@ -10,7 +10,7 @@ class CreatevideoController extends Controller
     public function index($id){
      // dd($id);
         $data['page'] = 'All Create Videos';
-        $data['create_test'] = CreatevideoModel::withTrashed()->where('volume_id',$id)->latest()->get();
+        $data['create_test'] = CreatevideoModel::withTrashed()->where('volume_id',$id)->latest()->paginate(10);
         session(['video_volume' => $id]);
         return view('admin.createvideo.index')->with($data);
     }

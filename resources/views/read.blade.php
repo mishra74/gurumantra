@@ -1,4 +1,5 @@
-@include('layouts.header')
+@extends('layouts.master')
+@section('content')
 
 @section('meta')
 <meta property="og:type" content="article">
@@ -169,3 +170,4 @@
             .catch(() => alert("Copy failed"));
     }
 </script>
+@endsection

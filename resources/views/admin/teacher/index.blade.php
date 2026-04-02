@@ -80,6 +80,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    {{ $teacher->links() }}
                                 </div> <!-- end table-responsive -->
 
                             </div> <!-- end card body -->

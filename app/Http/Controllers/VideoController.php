@@ -17,7 +17,7 @@ class VideoController extends Controller
          $data['tests'] = ViewrecorderModel::where('is_active', 1)
      ->whereNull('deleted_at')->latest()
      //->whereRaw("JSON_CONTAINS(courses, '\"$courseId\"')")
-     ->get();
+     ->paginate(10);
     //dd($data['tests']);
          return view('video_valume')->with($data);
     }

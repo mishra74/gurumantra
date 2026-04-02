@@ -87,6 +87,7 @@
                                             
                                         </tbody>
                                     </table>
+                                    {{$create_test->links()}}
                                 </div> <!-- end table-responsive -->
 
                             </div> <!-- end card body -->

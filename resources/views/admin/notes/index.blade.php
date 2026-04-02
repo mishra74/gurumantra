@@ -67,7 +67,7 @@
 
                                                </tbody>
                                             </table>
-                                            
+                                            {{ $dailycurrent->links() }}
 
                                         </div> <!-- end table-responsive-->
 

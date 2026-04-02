@@ -12,12 +12,14 @@ class FronStudentController extends Controller
     }
     
      public function category(){
+
         return view('category');
     }
 
     public function read_document($id,$category){
     
-            $allContent = DailyCurrent::where('is_active',1)->where('category',$category)->get();
+            $allContent = DailyCurrent::where('is_active',1)->get();
+            
         return view('co-contentlist',compact('allContent'));
     }
 

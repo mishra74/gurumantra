@@ -9,7 +9,7 @@ class MagazineController extends Controller
 {
     public function index(){
         $data['page'] = 'All Magazine';
-        $data['create_test'] = Magazine::withTrashed()->get();
+        $data['create_test'] = Magazine::withTrashed()->lastest()->paginate(10);
         return view('admin.magazines.index')->with($data);
     }
 
